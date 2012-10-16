@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace NScripto.Tests.Documentation
 {
     [TestFixture]
-    public class script_documentation_consistency
+    public class ScriptDocumentationConsistencyFixture
     {
         //[Test]
         //public void all_methods_in_script_environments_should_have_a_script_or_noscript_attribute()

@@ -28,7 +28,7 @@ namespace NScripto.Tests.Documentation
         [Test]
         public void it_should_find_the_correct_number_of_environments()
         {
-            Assert.That(_result.EnvironmentCount, Is.EqualTo(2));
+            Assert.That(_result.EnvironmentCount, Is.GreaterThanOrEqualTo(2));
         }
 
         [Test]
