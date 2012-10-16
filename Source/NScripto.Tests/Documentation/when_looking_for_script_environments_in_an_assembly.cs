@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using NScripto.Documentation;
-using NScripto.Tests.Documentation.Samples;
-using NScripto.Tests.Documentation.Samples.Nested;
+using NScripto.Tests.TestClasses;
+using NScripto.Tests.TestClasses.Nested;
 using NUnit.Framework;
 
 namespace NScripto.Tests.Documentation

@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace NScripto.Tests.Documentation.Samples
+namespace NScripto.Tests.TestClasses
 {
     public class NotAScriptEnvironment
     {

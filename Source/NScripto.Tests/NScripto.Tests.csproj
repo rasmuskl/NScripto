@@ -51,9 +51,6 @@
     <Compile Include="CSharpScriptFixture.cs" />
     <Compile Include="MethodDelegaterFixture.cs" />
     <Compile Include="Documentation\behaves_as_a_documentation_extraction.cs" />
-    <Compile Include="Documentation\Samples\Nested\NestedSampleScriptEnvironment.cs" />
-    <Compile Include="Documentation\Samples\NotAScriptEnvironment.cs" />
-    <Compile Include="Documentation\Samples\SampleScriptEnvironment.cs" />
     <Compile Include="Documentation\script_documentation_consistency.cs" />
     <Compile Include="Documentation\when_extracting_documentation_from_a_class_not_marked_as_an_environment.cs" />
     <Compile Include="Documentation\when_extracting_documentation_from_a_valid_script_environment.cs" />
@@ -62,6 +59,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptFactoryFixture.cs" />
     <Compile Include="SpecBase.cs" />
+    <Compile Include="TestClasses\Nested\NestedSampleScriptEnvironment.cs" />
+    <Compile Include="TestClasses\NotAScriptEnvironment.cs" />
+    <Compile Include="TestClasses\SampleScriptEnvironment.cs" />
+    <Compile Include="TestClasses\TestScriptArity1.cs" />
+    <Compile Include="TestClasses\TestScriptArity2.cs" />
+    <Compile Include="TestClasses\TestScriptArity3.cs" />
+    <Compile Include="TestClasses\TestScriptArity4.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
