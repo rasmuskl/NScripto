@@ -30,18 +30,24 @@ namespace NScripto
             return (T)Activator.CreateInstance(typeof(T), new[] { genericScript }, new object[0]);
         }
 
-        private Type GetGenericWrapperOfArity(int count)
+        private Type GetGenericWrapperOfArity(int arity)
         {
-            switch (count)
+            switch (arity)
             {
                 case 1:
                     return typeof(GenericScriptWrapper<>);
 
                 case 2:
                     return typeof(GenericScriptWrapper<,>);
+
+                case 3:
+                    return typeof(GenericScriptWrapper<,,>);
+
+                case 4:
+                    return typeof(GenericScriptWrapper<,,,>);
             }
 
-            throw new Exception("Arity " + count + " not supported.");
+            throw new Exception("Arity " + arity + " not supported.");
         }
     }
 }

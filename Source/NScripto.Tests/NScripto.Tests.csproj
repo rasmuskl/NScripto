@@ -60,6 +60,7 @@
     <Compile Include="Documentation\when_looking_for_script_environments_in_an_assembly.cs" />
     <Compile Include="Documentation\when_looking_for_script_environments_in_a_specific_namespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptFactoryFixture.cs" />
     <Compile Include="SpecBase.cs" />
   </ItemGroup>
   <ItemGroup>
