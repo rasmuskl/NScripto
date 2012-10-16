@@ -51,6 +51,7 @@
     <Compile Include="CSharpScriptFixture.cs" />
     <Compile Include="Documentation\ExtractingNoAttributeFixture.cs" />
     <Compile Include="Documentation\ExtractingTestDocumentationFixture.cs" />
+    <Compile Include="HappyPathSample.cs" />
     <Compile Include="MethodDelegaterFixture.cs" />
     <Compile Include="Documentation\ScanningAssemblyFixture.cs" />
     <Compile Include="Documentation\ScanningSpecificNamespaceFixture.cs" />
