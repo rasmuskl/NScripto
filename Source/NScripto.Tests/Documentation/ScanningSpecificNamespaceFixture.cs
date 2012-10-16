@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace NScripto.Tests.Documentation
 {
-    public class when_looking_for_script_environments_in_a_specific_namespace : SpecBase
+    public class ScanningSpecificNamespaceFixture : SpecBase
     {
         private ScriptEnvironmentScanner _scanner;
         private ScriptEnvironmentTypeResult _result;
@@ -26,19 +26,19 @@ namespace NScripto.Tests.Documentation
         }
 
         [Test]
-        public void it_should_find_the_correct_number_of_environments()
+        public void ItShouldFindTheCorrectNumberOfEnvironments()
         {
             Assert.That(_result.EnvironmentCount, Is.GreaterThanOrEqualTo(2));
         }
 
         [Test]
-        public void it_should_find_environments_in_the_namespace()
+        public void ItShouldFindEnvironmentsInTheNamespace()
         {
             Assert.That(_result.EnvironmentTypes.Contains(typeof(SampleScriptEnvironment)));            
         }
 
         [Test]
-        public void it_should_find_environments_nested_from_the_namespace()
+        public void ItShouldFindEnvironmentsNestedFromTheNamespace()
         {
             Assert.That(_result.EnvironmentTypes.Contains(typeof(NestedSampleScriptEnvironment)));
         }

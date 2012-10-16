@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace NScripto.Tests.Documentation
 {
-    public class when_looking_for_script_environments_in_an_assembly : SpecBase
+    public class ScanningAssemblyFixture : SpecBase
     {
         private ScriptEnvironmentScanner _scanner;
         private ScriptEnvironmentTypeResult _result;
@@ -25,7 +25,7 @@ namespace NScripto.Tests.Documentation
         }
 
         [Test]
-        public void it_should_find_the_same_as_a_specialized_namespace_search()
+        public void ItShouldFindTheSameAsASpecializedNamespaceSearch()
         {
             Assert.That(_result.EnvironmentTypes.Contains(typeof(SampleScriptEnvironment)));
             Assert.That(_result.EnvironmentTypes.Contains(typeof(NestedSampleScriptEnvironment)));

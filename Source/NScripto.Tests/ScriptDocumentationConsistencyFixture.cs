@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using NUnit.Framework;
 
-namespace NScripto.Tests.Documentation
+namespace NScripto.Tests
 {
     [TestFixture]
     public class ScriptDocumentationConsistencyFixture
