@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="CSharpScriptFixture.cs" />
     <Compile Include="Documentation\ExtractingNoAttributeFixture.cs" />
-    <Compile Include="Documentation\ExtractingTestDocumentationFixture.cs" />
+    <Compile Include="Documentation\ExtractingTestEnvironmentDocumentationFixture.cs" />
+    <Compile Include="Documentation\ExtractingTestScriptDocumentationFixture.cs" />
     <Compile Include="HappyPathSample.cs" />
     <Compile Include="MethodDelegaterFixture.cs" />
     <Compile Include="Documentation\ScanningAssemblyFixture.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="TestClasses\Nested\NestedSampleScriptEnvironment.cs" />
     <Compile Include="TestClasses\NotAScriptEnvironment.cs" />
     <Compile Include="TestClasses\SampleScriptEnvironment.cs" />
+    <Compile Include="TestClasses\ScriptTypes\DocumentedScript.cs" />
     <Compile Include="TestClasses\TestDocumentationEnvironment.cs" />
     <Compile Include="TestClasses\TestNotMarkedAsEnvironment.cs" />
     <Compile Include="TestClasses\TestScriptArity1.cs" />

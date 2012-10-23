@@ -10,10 +10,11 @@ namespace NScripto.Documentation
         private readonly string _description;
         private readonly List<ScriptMethodDocumentation> _methods = new List<ScriptMethodDocumentation>();
 
-        public EnvironmentDocumentation(string name, string description)
+        public EnvironmentDocumentation(Type environmentType, string name, string description)
         {
             _name = name;
             _description = description;
+            EnvironmentType = environmentType;
         }
 
         public string Name
@@ -35,5 +36,7 @@ namespace NScripto.Documentation
         {
             get { return _methods.AsReadOnly(); }
         }
+
+        public Type EnvironmentType { get; private set; }
     }
 }

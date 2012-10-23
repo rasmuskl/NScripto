@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace NScripto.Tests.Documentation
 {
     [TestFixture]
-    public class ExtractingTestDocumentationFixture : SpecBase
+    public class ExtractingTestEnvironmentDocumentationFixture : SpecBase
     {
         private ScriptDocumentationExtractor _extractor;
         private ScriptDocumentation _documentation;

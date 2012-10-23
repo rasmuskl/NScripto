@@ -46,6 +46,7 @@
     <Compile Include="Documentation\ExtractingScriptDocumentationService.cs" />
     <Compile Include="Documentation\IScriptDocumentationService.cs" />
     <Compile Include="Documentation\NoScriptMethodAttribute.cs" />
+    <Compile Include="Documentation\ScriptAttribute.cs" />
     <Compile Include="Documentation\ScriptDocumentation.cs" />
     <Compile Include="Documentation\ScriptDocumentationExtractor.cs" />
     <Compile Include="Documentation\ScriptDocumentationParameter.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Documentation\ScriptMethodAttribute.cs" />
     <Compile Include="Documentation\ScriptMethodDocumentation.cs" />
     <Compile Include="Documentation\ScriptParameterAttribute.cs" />
+    <Compile Include="Documentation\ScriptTypeDocumentation.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

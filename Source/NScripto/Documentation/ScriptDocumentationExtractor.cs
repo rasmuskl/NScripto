@@ -30,7 +30,7 @@ namespace NScripto.Documentation
             if (environmentAttribute == null)
                 return;
 
-            documentation.Add(environmentAttribute.Name, environmentAttribute.Description);
+            documentation.Add(type, environmentAttribute.Name, environmentAttribute.Description);
 
             foreach (var methodInfo in type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
             {
@@ -54,6 +54,23 @@ namespace NScripto.Documentation
                     documentation.AddScriptParameter(environmentAttribute.Name, methodInfo.Name, parameterAttribute.Name, parameterAttribute.Description);
                 }
             }
+        }
+
+        public ScriptDocumentation ExtractScriptDocumentation(Type scriptType)
+        {
+            ParameterInfo parameterInfo = scriptType.GetConstructors().First().GetParameters().First();
+            Type[] genericArguments = parameterInfo.ParameterType.GetGenericArguments();
+
+            var scriptAttributes = scriptType.GetCustomAttributes(typeof(ScriptAttribute), false).Cast<ScriptAttribute>();
+            var scriptAttribute = scriptAttributes.FirstOrDefault();
+
+            var name = scriptAttribute.Name;
+            var description = scriptAttribute.Description;
+
+            var envDocs = Extract(genericArguments);
+            var scriptDoc = new ScriptTypeDocumentation(scriptType, envDocs.Environments.ToArray(), name, description);
+
+            return new ScriptDocumentation(scriptDoc);
         }
     }
 }
