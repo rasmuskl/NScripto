@@ -5,7 +5,9 @@ packages
 *.suo
 *.ncrunchsolution
 *.ncrunchproject
+_NCrunch_NScripto
 *.user
 
 # mstest test results
 TestResults
+
