@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace NScripto.Documentation
+namespace NScripto.Documentation.Model
 {
     public class ScriptDocumentation
     {

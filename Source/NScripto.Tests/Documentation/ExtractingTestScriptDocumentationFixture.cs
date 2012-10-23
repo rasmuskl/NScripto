@@ -1,4 +1,5 @@
 ﻿using NScripto.Documentation;
+using NScripto.Documentation.Model;
 using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.ScriptTypes;
 using NUnit.Framework;
