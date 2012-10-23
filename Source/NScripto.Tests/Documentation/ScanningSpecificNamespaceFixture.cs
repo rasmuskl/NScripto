@@ -6,6 +6,7 @@ using NScripto.Documentation;
 using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.Nested;
 using NUnit.Framework;
+using Should;
 
 namespace NScripto.Tests.Documentation
 {
@@ -28,19 +29,19 @@ namespace NScripto.Tests.Documentation
         [Test]
         public void ItShouldFindTheCorrectNumberOfEnvironments()
         {
-            Assert.That(_result.Count(), Is.GreaterThanOrEqualTo(2));
+            _result.Count().ShouldBeInRange(2, 1000);
         }
 
         [Test]
         public void ItShouldFindEnvironmentsInTheNamespace()
         {
-            Assert.That(_result.Contains(typeof(SampleScriptEnvironment)));            
+            _result.ShouldContain(typeof(SampleScriptEnvironment));
         }
 
         [Test]
         public void ItShouldFindEnvironmentsNestedFromTheNamespace()
         {
-            Assert.That(_result.Contains(typeof(NestedSampleScriptEnvironment)));
+            _result.ShouldContain(typeof(NestedSampleScriptEnvironment));
         }
     }
 }

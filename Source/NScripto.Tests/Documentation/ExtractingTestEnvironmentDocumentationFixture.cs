@@ -3,6 +3,7 @@ using NScripto.Documentation;
 using NScripto.Documentation.Model;
 using NScripto.Tests.TestClasses;
 using NUnit.Framework;
+using Should;
 
 namespace NScripto.Tests.Documentation
 {
@@ -25,33 +26,33 @@ namespace NScripto.Tests.Documentation
         [Test]
         public void TheDocumentationShouldContainExactlyOneEnvironment()
         {
-            Assert.That(_documentation.Environments.Count(), Is.EqualTo(1));
+            _documentation.Environments.Count().ShouldEqual(1);
         }
 
         [Test]
         public void TheDocumentationShouldContainInformationAboutTheEnvironmentName()
         {
-            Assert.That(_documentation.Environments.Any(x => x.Name == "name"));
+            _documentation.Environments.Any(x => x.Name == "name").ShouldBeTrue();
         }
 
         [Test]
         public void TheDocumentationShouldContainTheDescriptionOfTheEnvironment()
         {
-            Assert.That(_documentation.Environments.Any(x => x.Description == "environment description"));
+            _documentation.Environments.Any(x => x.Description == "environment description").ShouldBeTrue();
         }
 
         [Test]
         public void TheDocumentationShouldContainMethodNamesOfScriptMethods()
         {
-            Assert.That(_documentation.Environments.First().Methods.Any(x => x.Name == "Method"));
-            Assert.That(_documentation.Environments.First().Methods.Any(x => x.Name == "Method2"));
+            _documentation.Environments.First().Methods.Any(x => x.Name == "Method").ShouldBeTrue();
+            _documentation.Environments.First().Methods.Any(x => x.Name == "Method2").ShouldBeTrue();
         }
 
         [Test]
         public void TheDocumentataionShouldContainDescriptionsOfScriptMethods()
         {
-            Assert.That(_documentation.Environments.First().Methods.Any(x => x.Name == "Method" && x.Description == "method description"));
-            Assert.That(_documentation.Environments.First().Methods.Any(x => x.Name == "Method2" && x.Description == "method2 description"));
+            _documentation.Environments.First().Methods.Any(x => x.Name == "Method" && x.Description == "method description").ShouldBeTrue();
+            _documentation.Environments.First().Methods.Any(x => x.Name == "Method2" && x.Description == "method2 description").ShouldBeTrue();
         }
 
         [Test]
@@ -64,11 +65,11 @@ namespace NScripto.Tests.Documentation
             var enumerator = methodDoc.Parameters.GetEnumerator();
 
             enumerator.MoveNext();
-            Assert.That(enumerator.Current.Name, Is.EqualTo("a"));
+            enumerator.Current.Name.ShouldEqual("a");
             enumerator.MoveNext();
-            Assert.That(enumerator.Current.Name, Is.EqualTo("b"));
+            enumerator.Current.Name.ShouldEqual("b");
             enumerator.MoveNext();
-            Assert.That(enumerator.Current.Name, Is.EqualTo("c"));
+            enumerator.Current.Name.ShouldEqual("c");
         }
     }
 }

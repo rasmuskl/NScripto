@@ -6,6 +6,7 @@ using NScripto.Documentation;
 using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.Nested;
 using NUnit.Framework;
+using Should;
 
 namespace NScripto.Tests.Documentation
 {
@@ -27,8 +28,8 @@ namespace NScripto.Tests.Documentation
         [Test]
         public void ItShouldFindTheSameAsASpecializedNamespaceSearch()
         {
-            Assert.That(_result.Contains(typeof(SampleScriptEnvironment)));
-            Assert.That(_result.Contains(typeof(NestedSampleScriptEnvironment)));
+            _result.ShouldContain(typeof (SampleScriptEnvironment));
+            _result.ShouldContain(typeof (NestedSampleScriptEnvironment));
         }
     }
 }

@@ -3,6 +3,7 @@ using NScripto.Documentation;
 using NScripto.Documentation.Model;
 using NScripto.Tests.TestClasses;
 using NUnit.Framework;
+using Should;
 
 namespace NScripto.Tests.Documentation
 {
@@ -24,7 +25,7 @@ namespace NScripto.Tests.Documentation
         [Test]
         public void WontAddClassesWithoutAttributeToEnvironments()
         {
-            Assert.That(_documentation.Environments.Count(), Is.EqualTo(0));
+            _documentation.Environments.Count().ShouldEqual(0);
         }
     }
 }
