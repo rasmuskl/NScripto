@@ -52,7 +52,6 @@
     <Compile Include="Documentation\ScriptDocumentationExtractor.cs" />
     <Compile Include="Documentation\Model\ScriptDocumentationParameter.cs" />
     <Compile Include="Documentation\ScriptEnvironmentScanner.cs" />
-    <Compile Include="Documentation\Model\ScriptEnvironmentTypeResult.cs" />
     <Compile Include="Documentation\Model\ScriptMethodDocumentation.cs" />
     <Compile Include="Documentation\Model\ScriptTypeDocumentation.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
