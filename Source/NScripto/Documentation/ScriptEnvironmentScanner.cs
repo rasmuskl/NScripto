@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
+using NScripto.Documentation.Attributes;
 
 namespace NScripto.Documentation
 {

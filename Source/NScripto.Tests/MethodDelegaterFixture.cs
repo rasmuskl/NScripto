@@ -8,6 +8,7 @@ using Microsoft.CSharp;
 using NScripto.CSharp;
 using NScripto.CodeDom;
 using NScripto.Documentation;
+using NScripto.Documentation.Attributes;
 using NUnit.Framework;
 using Should;
 
