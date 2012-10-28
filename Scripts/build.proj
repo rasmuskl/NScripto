@@ -47,7 +47,7 @@
 
   <Target Name="updateNuspecVersions" Condition="'$(Version)' != ''">
     <Message Text="Updating NuSpec version... %(NuSpecFiles.FullPath)"/>
-    <XmlPoke XmlInputPath="%(NuSpecFiles.FullPath)" Query="//version" Value="$(Version)-alpha" />
+    <XmlPoke XmlInputPath="%(NuSpecFiles.FullPath)" Query="//version" Value="$(Version)" />
   </Target>
 
   <Target Name="pushNugetPackages" DependsOnTargets="createNugetPackage" Condition="'$(Version)' != ''">

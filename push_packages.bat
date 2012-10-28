@@ -2,7 +2,7 @@
 
 set /P VERSION=Enter version: 
 
-echo Verify version: %VERSION%
+echo Verify version: %VERSION%-alpha
 
 set /P PROMPT=Y/y to confirm version: 
 
@@ -12,6 +12,8 @@ goto :DONE
 
 :GO
 %WINDIR%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe scripts\build.proj /v:m /t:build;pushNugetPackages /p:Version=%VERSION%
+
+if %errorlevel% == 0 git tag %VERSION%
 
 :DONE
 @prompt $p$g
