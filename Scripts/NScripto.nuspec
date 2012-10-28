@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>NScripto</id>
+    <version>0.0.1</version>
+    <title>NScripto</title>
+    <authors>rasmuskl</authors>
+    <owners>rasmuskl</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>http://github.com/rasmuskl/NScripto</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NScripto is a C# script engine.</description>
+    <copyright>Copyright 2012</copyright>
+    <tags>csharp script</tags>
+  </metadata>
+  <files>
+    <file src="..\deploy\**\NScripto.dll" target="lib" />
+  </files>
+</package>
