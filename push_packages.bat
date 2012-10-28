@@ -11,9 +11,9 @@ if [%PROMPT%] == [y] goto :GO
 goto :DONE
 
 :GO
-%WINDIR%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe scripts\build.proj /v:m /t:build;pushNugetPackages /p:Version=%VERSION%
+%WINDIR%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe scripts\build.proj /v:m /t:build;pushNugetPackages /p:Version=%VERSION%-alpha
 
-if %errorlevel% == 0 git tag %VERSION%
+if %errorlevel% == 0 git tag %VERSION%-alpha
 
 :DONE
 @prompt $p$g
