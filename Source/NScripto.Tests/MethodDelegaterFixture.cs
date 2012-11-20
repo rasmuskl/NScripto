@@ -83,6 +83,19 @@ namespace NScripto.Tests
         }
 
         [Test]
+        public void CanDelegateAMethodWithParams()
+        {
+            var delegater = new MethodDelegater();
+
+            var result = delegater.BuildDelegateMethod(typeof(TestDelegaterClass).GetMethod("MethodWithParams"), "testClass");
+
+            CompileToString(result).ShouldEqual(@"public void MethodWithParams(params object[] objs)
+{
+    testClass.MethodWithParams(objs);
+}");
+        }
+
+        [Test]
         public void WillNotDelegateANoScriptMethodMethod()
         {
             var delegater = new MethodDelegater();
@@ -121,6 +134,11 @@ namespace NScripto.Tests
             }            
             
             public void MethodWithOptionalString(string str = "Test")
+            {
+                
+            }            
+            
+            public void MethodWithParams(params object[] objs)
             {
                 
             }

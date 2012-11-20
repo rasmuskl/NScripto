@@ -55,20 +55,31 @@ namespace NScripto.CodeDom
         private CodeParameterDeclarationExpression[] BuildParameters(MethodInfo method)
         {
             return method.GetParameters()
-                .Select(x => new CodeParameterDeclarationExpression(x.ParameterType, x.Name) { CustomAttributes = BuildOptionalParameterAttributes(x.RawDefaultValue)})
+                .Select(x => new CodeParameterDeclarationExpression(x.ParameterType, x.Name) { CustomAttributes = BuildParameterAttributes(x) })
                 .ToArray();
         }
 
-        private static CodeAttributeDeclarationCollection BuildOptionalParameterAttributes(object defaultValue)
+        private static CodeAttributeDeclarationCollection BuildParameterAttributes(ParameterInfo parameterInfo)
         {
-            if (defaultValue == DBNull.Value)
+            var collection = new CodeAttributeDeclarationCollection();
+
+            object defaultValue = parameterInfo.RawDefaultValue;
+
+            if (defaultValue != DBNull.Value)
             {
-                return new CodeAttributeDeclarationCollection();
+                var optionalAttribute = new CodeAttributeDeclaration(new CodeTypeReference(typeof(OptionalAttribute)));
+                var defaultParameterAttribute = new CodeAttributeDeclaration(new CodeTypeReference(typeof(DefaultParameterValueAttribute)), new CodeAttributeArgument(new CodePrimitiveExpression(defaultValue)));
+
+                collection.Add(optionalAttribute);
+                collection.Add(defaultParameterAttribute);
             }
 
-            var optionalAttribute = new CodeAttributeDeclaration(new CodeTypeReference(typeof(OptionalAttribute)));
-            var defaultParameterAttribute = new CodeAttributeDeclaration(new CodeTypeReference(typeof (DefaultParameterValueAttribute)), new CodeAttributeArgument(new CodePrimitiveExpression(defaultValue)));
-            return new CodeAttributeDeclarationCollection(new [] { optionalAttribute, defaultParameterAttribute });
+            if (parameterInfo.GetCustomAttributes(typeof (ParamArrayAttribute), true).Any())
+            {
+                collection.Add(new CodeAttributeDeclaration(new CodeTypeReference(typeof (ParamArrayAttribute))));
+            }
+
+            return collection;
         }
     }
 }
