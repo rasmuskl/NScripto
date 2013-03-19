@@ -14,9 +14,9 @@ namespace NScripto.Tests.Verification
         [Test]
         public void ReportsScriptEnvironmentsWithoutScriptMethodAttributes()
         {
-            var rule = new ScriptVerifier();
+            var verifier = new ScriptVerifier();
 
-            var errors = rule.Verify(new [] { typeof (ScriptEnvironmentWithMissingScriptMethodAttribute) });
+            var errors = verifier.Verify(new [] { typeof (ScriptEnvironmentWithMissingScriptMethodAttribute) });
 
             var error = errors.ShouldContainExactlyOne<MissingScriptMethodAttributeVerificationError>();
             error.Type.ShouldEqual(typeof (ScriptEnvironmentWithMissingScriptMethodAttribute));
@@ -25,9 +25,9 @@ namespace NScripto.Tests.Verification
         [Test]
         public void ReportsScriptEnvironmentsWithMissingScriptParameterAttributes()
         {
-            var rule = new ScriptVerifier();
+            var verifier = new ScriptVerifier();
 
-            var errors = rule.Verify(new [] { typeof (ScriptEnvironmentWithMissingScriptParameterAttribute) });
+            var errors = verifier.Verify(new [] { typeof (ScriptEnvironmentWithMissingScriptParameterAttribute) });
 
             var error = errors.ShouldContainExactlyOne<MissingScriptParameterAttributeVerificationError>();
             error.Type.ShouldEqual(typeof(ScriptEnvironmentWithMissingScriptParameterAttribute));
