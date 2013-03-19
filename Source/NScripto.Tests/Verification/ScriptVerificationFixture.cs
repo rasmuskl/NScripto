@@ -17,10 +17,10 @@ namespace NScripto.Tests.Verification
         {
             var verifier = new ScriptVerifier();
 
-            var errors = verifier.Verify(new [] { typeof (ScriptEnvironmentWithMissingScriptMethodAttribute) });
+            var errors = verifier.Verify(new [] { typeof (EnvMissingScriptMethodAttribute) });
 
             var error = errors.ShouldContainExactlyOne<MissingScriptMethodAttributeVerificationError>();
-            error.Type.ShouldEqual(typeof (ScriptEnvironmentWithMissingScriptMethodAttribute));
+            error.Type.ShouldEqual(typeof (EnvMissingScriptMethodAttribute));
         }
 
         [Test]
@@ -28,10 +28,10 @@ namespace NScripto.Tests.Verification
         {
             var verifier = new ScriptVerifier();
 
-            var errors = verifier.Verify(new [] { typeof (ScriptEnvironmentWithMissingScriptParameterAttribute) });
+            var errors = verifier.Verify(new [] { typeof (EnvMissingScriptParameterAttribute) });
 
             var error = errors.ShouldContainExactlyOne<MissingScriptParameterAttributeVerificationError>();
-            error.Type.ShouldEqual(typeof(ScriptEnvironmentWithMissingScriptParameterAttribute));
+            error.Type.ShouldEqual(typeof(EnvMissingScriptParameterAttribute));
         }
     }
 }
