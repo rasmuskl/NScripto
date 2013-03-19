@@ -21,6 +21,7 @@ namespace NScripto.Tests.Verification
 
             var error = errors.ShouldContainExactlyOne<MissingScriptMethodAttributeVerificationError>();
             error.Type.ShouldEqual(typeof (EnvMissingScriptMethodAttribute));
+            error.MethodInfo.Name.ShouldEqual("Run");
         }
 
         [Test]
@@ -32,6 +33,8 @@ namespace NScripto.Tests.Verification
 
             var error = errors.ShouldContainExactlyOne<MissingScriptParameterAttributeVerificationError>();
             error.Type.ShouldEqual(typeof(EnvMissingScriptParameterAttribute));
+            error.MethodInfo.Name.ShouldEqual("Run");
+            error.ParameterInfo.Name.ShouldEqual("x");
         }
     }
 }

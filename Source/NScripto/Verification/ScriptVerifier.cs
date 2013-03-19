@@ -24,7 +24,7 @@ namespace NScripto.Verification
                     {
                         if (!methodInfo.GetCustomAttributes(typeof (ScriptMethodAttribute), true).Any())
                         {
-                            errors.Add(new MissingScriptMethodAttributeVerificationError(type));
+                            errors.Add(new MissingScriptMethodAttributeVerificationError(type, methodInfo));
                         }
 
                         var parameterInfos = methodInfo.GetParameters();
@@ -36,11 +36,10 @@ namespace NScripto.Verification
                         {
                             if (!scriptParameterAttributes.Any(x => x.Name == parameterInfo.Name))
                             {
-                                errors.Add(new MissingScriptParameterAttributeVerificationError(type));
+                                errors.Add(new MissingScriptParameterAttributeVerificationError(type, methodInfo, parameterInfo));
                             }
                         }
                     }
-
                 }
             }
 
