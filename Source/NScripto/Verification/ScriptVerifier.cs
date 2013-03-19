@@ -52,15 +52,13 @@ namespace NScripto.Verification
 
                 var constructorInfos = type.GetConstructors();
 
-                var scriptTypes = new[] { typeof(IScript<>), typeof(IScript<,>), typeof(IScript<,,>), typeof(IScript<,,,>) };
-
                 foreach (var constructorInfo in constructorInfos)
                 {
                     foreach (var parameterInfo in constructorInfo.GetParameters())
                     {
                         var parameterType = parameterInfo.ParameterType;
 
-                        if (parameterType.IsGenericType && scriptTypes.Contains(parameterType.GetGenericTypeDefinition()))
+                        if (parameterType.IsGenericType && typeof(IScript).IsAssignableFrom(parameterType.GetGenericTypeDefinition()))
                         {
                             foreach (var genericEnvironmentType in parameterType.GetGenericArguments())
                             {
