@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NScripto.Tests.TestClasses.Invalid;
 using NScripto.Verification;
+using NScripto.Verification.Errors;
 using NUnit.Framework;
 using System.Linq;
 using Should;

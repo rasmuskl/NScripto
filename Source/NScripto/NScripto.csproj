@@ -63,8 +63,8 @@
     <Compile Include="Raw\RawScriptWrapper.cs" />
     <Compile Include="ScriptCompilationException.cs" />
     <Compile Include="ScriptFactory.cs" />
-    <Compile Include="Verification\MissingScriptMethodAttributeVerificationError.cs" />
-    <Compile Include="Verification\MissingScriptParameterAttributeVerificationError.cs" />
+    <Compile Include="Verification\Errors\MissingScriptMethodAttributeVerificationError.cs" />
+    <Compile Include="Verification\Errors\MissingScriptParameterAttributeVerificationError.cs" />
     <Compile Include="Verification\ScriptVerifier.cs" />
     <Compile Include="Verification\IVerificationError.cs" />
     <Compile Include="Wrappers\GenericScriptWrapper.cs" />

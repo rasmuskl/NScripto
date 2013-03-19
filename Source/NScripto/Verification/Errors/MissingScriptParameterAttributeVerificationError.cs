@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace NScripto.Verification
+namespace NScripto.Verification.Errors
 {
     public class MissingScriptParameterAttributeVerificationError : IVerificationError
     {

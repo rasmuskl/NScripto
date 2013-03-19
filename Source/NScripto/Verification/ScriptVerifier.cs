@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using NScripto.Documentation.Attributes;
 using System.Linq;
+using NScripto.Verification.Errors;
 
 namespace NScripto.Verification
 {
