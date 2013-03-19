@@ -16,19 +16,19 @@ namespace NScripto.Verification
 
             foreach (var type in types)
             {
-                if (type.GetCustomAttributes(typeof (ScriptEnvironmentAttribute), true).Any())
+                if (type.GetCustomAttributes(typeof(ScriptEnvironmentAttribute), true).Any())
                 {
                     var methodInfos = type.GetMethods(BindingFlags.Public | BindingFlags.Instance);
 
                     foreach (var methodInfo in methodInfos.Where(IsNotObjectMethodOrCompilerGenerated))
                     {
-                        if (!methodInfo.GetCustomAttributes(typeof (ScriptMethodAttribute), true).Any())
+                        if (!methodInfo.GetCustomAttributes(typeof(ScriptMethodAttribute), true).Any())
                         {
                             errors.Add(new MissingScriptMethodAttributeVerificationError(type, methodInfo));
                         }
 
                         var parameterInfos = methodInfo.GetParameters();
-                        var scriptParameterAttributes = methodInfo.GetCustomAttributes(typeof (ScriptParameterAttribute), true)
+                        var scriptParameterAttributes = methodInfo.GetCustomAttributes(typeof(ScriptParameterAttribute), true)
                             .OfType<ScriptParameterAttribute>()
                             .ToArray();
 
@@ -49,6 +49,29 @@ namespace NScripto.Verification
                         }
                     }
                 }
+
+                var constructorInfos = type.GetConstructors();
+
+                var scriptTypes = new[] { typeof(IScript<>), typeof(IScript<,>), typeof(IScript<,,>), typeof(IScript<,,,>) };
+
+                foreach (var constructorInfo in constructorInfos)
+                {
+                    foreach (var parameterInfo in constructorInfo.GetParameters())
+                    {
+                        var parameterType = parameterInfo.ParameterType;
+
+                        if (parameterType.IsGenericType && scriptTypes.Contains(parameterType.GetGenericTypeDefinition()))
+                        {
+                            foreach (var genericEnvironmentType in parameterType.GetGenericArguments())
+                            {
+                                if (!genericEnvironmentType.GetCustomAttributes(typeof(ScriptEnvironmentAttribute), true).Any())
+                                {
+                                    errors.Add(new NonScriptEnvironmentGenericTypeVerificationError(type, genericEnvironmentType));
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             return errors.ToArray();
@@ -56,7 +79,7 @@ namespace NScripto.Verification
 
         private static bool IsNotObjectMethodOrCompilerGenerated(MethodInfo methodInfo)
         {
-            return methodInfo.DeclaringType != typeof (object) && !methodInfo.GetCustomAttributes(typeof (CompilerGeneratedAttribute), true).Any();
+            return methodInfo.DeclaringType != typeof(object) && !methodInfo.GetCustomAttributes(typeof(CompilerGeneratedAttribute), true).Any();
         }
     }
 }

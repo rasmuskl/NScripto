@@ -63,6 +63,7 @@
     <Compile Include="TestClasses\Invalid\EnvMissingScriptMethodAttribute.cs" />
     <Compile Include="TestClasses\Invalid\EnvMissingScriptParameterAttribute.cs" />
     <Compile Include="TestClasses\Invalid\EnvWrongScriptParameterAttributeName.cs" />
+    <Compile Include="TestClasses\Invalid\ScriptWithNonEnvDependency.cs" />
     <Compile Include="TestClasses\Nested\NestedSampleScriptEnvironment.cs" />
     <Compile Include="TestClasses\NotAScriptEnvironment.cs" />
     <Compile Include="TestClasses\SampleScriptEnvironment.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="TestClasses\TestScriptArity3.cs" />
     <Compile Include="TestClasses\TestScriptArity4.cs" />
     <Compile Include="Verification\EnvironmentVerificationFixture.cs" />
+    <Compile Include="Verification\ScriptVerificationFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
