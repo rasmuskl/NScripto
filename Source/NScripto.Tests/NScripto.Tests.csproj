@@ -61,6 +61,8 @@
     <Compile Include="ScriptFactoryFixture.cs" />
     <Compile Include="ShouldExtensions.cs" />
     <Compile Include="SpecBase.cs" />
+    <Compile Include="TestClasses\Invalid\ScriptEnvironmentWithMissingScriptMethodAttribute.cs" />
+    <Compile Include="TestClasses\Invalid\ScriptEnvironmentWithMissingScriptParameterAttribute.cs" />
     <Compile Include="TestClasses\Nested\NestedSampleScriptEnvironment.cs" />
     <Compile Include="TestClasses\NotAScriptEnvironment.cs" />
     <Compile Include="TestClasses\SampleScriptEnvironment.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="TestClasses\TestScriptArity2.cs" />
     <Compile Include="TestClasses\TestScriptArity3.cs" />
     <Compile Include="TestClasses\TestScriptArity4.cs" />
+    <Compile Include="Verification\ScriptVerificationFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,6 +84,7 @@
       <Name>NScripto</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

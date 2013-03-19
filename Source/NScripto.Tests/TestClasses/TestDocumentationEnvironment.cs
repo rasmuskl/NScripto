@@ -1,4 +1,3 @@
-using NScripto.Documentation;
 using NScripto.Documentation.Attributes;
 
 namespace NScripto.Tests.TestClasses
