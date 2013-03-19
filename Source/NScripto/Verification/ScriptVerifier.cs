@@ -39,10 +39,17 @@ namespace NScripto.Verification
                                 errors.Add(new MissingScriptParameterAttributeVerificationError(type, methodInfo, parameterInfo));
                             }
                         }
+
+                        foreach (var scriptParameterAttribute in scriptParameterAttributes)
+                        {
+                            if (!parameterInfos.Any(x => x.Name == scriptParameterAttribute.Name))
+                            {
+                                errors.Add(new UnmatchedScriptParameterAttributeVerificationError(type, methodInfo, scriptParameterAttribute));
+                            }
+                        }
                     }
                 }
             }
-
 
             return errors.ToArray();
         }

@@ -36,5 +36,18 @@ namespace NScripto.Tests.Verification
             error.MethodInfo.Name.ShouldEqual("Run");
             error.ParameterInfo.Name.ShouldEqual("x");
         }
+
+        [Test]
+        public void ReportsScriptEnvironmentsWithUnmatchedScriptParameterAttributes()
+        {
+            var verifier = new ScriptVerifier();
+
+            var errors = verifier.Verify(new [] { typeof (EnvWrongScriptParameterAttributeName) });
+
+            var error = errors.ShouldContainExactlyOne<UnmatchedScriptParameterAttributeVerificationError>();
+            error.Type.ShouldEqual(typeof(EnvWrongScriptParameterAttributeName));
+            error.MethodInfo.Name.ShouldEqual("Run");
+            error.Attribute.Name.ShouldEqual("y");
+        }
     }
 }

@@ -65,6 +65,7 @@
     <Compile Include="ScriptFactory.cs" />
     <Compile Include="Verification\Errors\MissingScriptMethodAttributeVerificationError.cs" />
     <Compile Include="Verification\Errors\MissingScriptParameterAttributeVerificationError.cs" />
+    <Compile Include="Verification\Errors\UnmatchedScriptParameterAttributeVerificationError.cs" />
     <Compile Include="Verification\ScriptVerifier.cs" />
     <Compile Include="Verification\IVerificationError.cs" />
     <Compile Include="Wrappers\GenericScriptWrapper.cs" />
