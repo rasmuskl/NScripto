@@ -10,7 +10,7 @@ using Should;
 namespace NScripto.Tests.Verification
 {
     [TestFixture]
-    public class ScriptVerificationFixture
+    public class EnvironmentVerificationFixture
     {
         [Test]
         public void ReportsScriptEnvironmentsWithoutScriptMethodAttributes()

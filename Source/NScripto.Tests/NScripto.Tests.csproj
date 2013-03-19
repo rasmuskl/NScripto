@@ -73,7 +73,7 @@
     <Compile Include="TestClasses\TestScriptArity2.cs" />
     <Compile Include="TestClasses\TestScriptArity3.cs" />
     <Compile Include="TestClasses\TestScriptArity4.cs" />
-    <Compile Include="Verification\ScriptVerificationFixture.cs" />
+    <Compile Include="Verification\EnvironmentVerificationFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
