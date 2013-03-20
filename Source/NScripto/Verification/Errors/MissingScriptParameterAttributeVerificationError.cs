@@ -17,5 +17,7 @@ namespace NScripto.Verification.Errors
         public Type Type { get; private set; }
         public MethodInfo MethodInfo { get; private set; }
         public ParameterInfo ParameterInfo { get; private set; }
+
+        public string Message { get { return "Missing script parameter (" + ParameterInfo.Name + ") attribute in environment: " + Type.Name + ", method: " + MethodInfo.Name; } }
     }
 }
