@@ -1,7 +1,10 @@
 ﻿using System;
 using NScripto.CSharp;
+using NScripto.Exceptions;
 using NScripto.Tests.TestClasses;
+using NScripto.Tests.TestClasses.Invalid;
 using NUnit.Framework;
+using Should;
 
 namespace NScripto.Tests
 {
@@ -15,7 +18,7 @@ namespace NScripto.Tests
         {
             _scriptFactory = new ScriptFactory(new CSharpScriptCompiler());
         }
-
+                
         [Test]
         public void SupportsGenericArity1()
         {
@@ -46,6 +49,13 @@ namespace NScripto.Tests
             var script = _scriptFactory.CompileScript<TestScriptArity4>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
+        }
+
+        [Test]
+        public void InvalidConstructor_MultipleScriptConstructors_ThrowsException()
+        {
+            var exception = Assert.Throws<MultipleScriptConstructorsException>(() => _scriptFactory.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
+            exception.ScriptType.ShouldEqual(typeof(ScriptWithMultipleScriptConstructors));
         }
     }
 }

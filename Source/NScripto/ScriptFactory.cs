@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using NScripto.CSharp;
+using NScripto.Exceptions;
 using NScripto.Wrappers;
 
 namespace NScripto
@@ -18,8 +20,16 @@ namespace NScripto
         {
             var scriptType = typeof(T);
 
-            var parameterInfo = scriptType.GetConstructors().First().GetParameters().First();
-            var genericArguments = parameterInfo.ParameterType.GetGenericArguments();
+            var scriptConstructors = scriptType.GetConstructors().Where(IsScriptConstructor).ToArray();
+
+            if (scriptConstructors.Count() > 1)
+            {
+                throw new MultipleScriptConstructorsException(typeof(T));
+            }
+
+            var scriptConstructor = scriptConstructors.Single();
+            var scriptParameter = scriptConstructor.GetParameters().Single();
+            var genericArguments = scriptParameter.ParameterType.GetGenericArguments();
 
             var openGenericScriptType = GetGenericWrapperOfArity(genericArguments.Count());
             var closedGenericScriptType = openGenericScriptType.MakeGenericType(genericArguments);
@@ -28,6 +38,19 @@ namespace NScripto
             var genericScript = Activator.CreateInstance(closedGenericScriptType, script);
 
             return (T)Activator.CreateInstance(typeof(T), new[] { genericScript }, new object[0]);
+        }
+
+        private bool IsScriptConstructor(ConstructorInfo constructor)
+        {
+            var parameters = constructor.GetParameters();
+
+            if (parameters.Count() != 1)
+            {
+                return false;
+            }
+
+            var parameterInfo = parameters.First();
+            return typeof(IScript).IsAssignableFrom(parameterInfo.ParameterType);
         }
 
         private Type GetGenericWrapperOfArity(int arity)
