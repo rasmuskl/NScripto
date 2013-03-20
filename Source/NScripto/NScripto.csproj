@@ -64,7 +64,7 @@
     <Compile Include="Raw\IScriptRunnable.cs" />
     <Compile Include="Raw\RawScriptWrapper.cs" />
     <Compile Include="ScriptCompilationException.cs" />
-    <Compile Include="ScriptFactory.cs" />
+    <Compile Include="ScriptApi.cs" />
     <Compile Include="Verification\Errors\MissingScriptMethodAttributeVerificationError.cs" />
     <Compile Include="Verification\Errors\MissingScriptParameterAttributeVerificationError.cs" />
     <Compile Include="Verification\Errors\NonScriptEnvironmentGenericTypeVerificationError.cs" />

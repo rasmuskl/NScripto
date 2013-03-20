@@ -10,7 +10,7 @@ namespace NScripto.Verification
 {
     public class ScriptVerifier
     {
-        public IVerificationError[] Verify(Type[] types)
+        public IVerificationError[] AnalyzeTypes(Type[] types)
         {
             var errors = new List<IVerificationError>();
 

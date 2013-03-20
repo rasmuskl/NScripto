@@ -7,32 +7,32 @@ namespace NScripto.Tests
     [TestFixture]
     public class HappyPathSample
     {
-        private ScriptFactory _scriptFactory;
+        private ScriptApi _scriptApi;
 
         [SetUp]
         public void BeforeEachTest()
         {
-            _scriptFactory = new ScriptFactory(new CSharpScriptCompiler());
+            _scriptApi = new ScriptApi(new CSharpScriptCompiler());
         }
 
         [Test]
         public void Meh()
         {
-            var happyScript = _scriptFactory.CompileScript<HappyScript>("");
+            var happyScript = _scriptApi.CompileScript<HappyScript>("");
             happyScript.Run().ShouldEqual("Moody");
         }
 
         [Test]
         public void Yay()
         {
-            var happyScript = _scriptFactory.CompileScript<HappyScript>("Happy()");
+            var happyScript = _scriptApi.CompileScript<HappyScript>("Happy()");
             happyScript.Run().ShouldEqual("Happy!");
         }
 
         [Test]
         public void Noo()
         {
-            var happyScript = _scriptFactory.CompileScript<HappyScript>("Unhappy()");
+            var happyScript = _scriptApi.CompileScript<HappyScript>("Unhappy()");
             happyScript.Run().ShouldEqual("Unhappy!");
         }
 

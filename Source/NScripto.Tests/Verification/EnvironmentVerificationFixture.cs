@@ -17,7 +17,7 @@ namespace NScripto.Tests.Verification
         {
             var verifier = new ScriptVerifier();
 
-            var errors = verifier.Verify(new [] { typeof (EnvMissingScriptMethodAttribute) });
+            var errors = verifier.AnalyzeTypes(new [] { typeof (EnvMissingScriptMethodAttribute) });
 
             var error = errors.ShouldContainExactlyOne<MissingScriptMethodAttributeVerificationError>();
             error.Type.ShouldEqual(typeof (EnvMissingScriptMethodAttribute));
@@ -29,7 +29,7 @@ namespace NScripto.Tests.Verification
         {
             var verifier = new ScriptVerifier();
 
-            var errors = verifier.Verify(new [] { typeof (EnvMissingScriptParameterAttribute) });
+            var errors = verifier.AnalyzeTypes(new [] { typeof (EnvMissingScriptParameterAttribute) });
 
             var error = errors.ShouldContainExactlyOne<MissingScriptParameterAttributeVerificationError>();
             error.Type.ShouldEqual(typeof(EnvMissingScriptParameterAttribute));
@@ -42,7 +42,7 @@ namespace NScripto.Tests.Verification
         {
             var verifier = new ScriptVerifier();
 
-            var errors = verifier.Verify(new [] { typeof (EnvWrongScriptParameterAttributeName) });
+            var errors = verifier.AnalyzeTypes(new [] { typeof (EnvWrongScriptParameterAttributeName) });
 
             var error = errors.ShouldContainExactlyOne<UnmatchedScriptParameterAttributeVerificationError>();
             error.Type.ShouldEqual(typeof(EnvWrongScriptParameterAttributeName));

@@ -57,7 +57,7 @@
     <Compile Include="Documentation\ScanningAssemblyFixture.cs" />
     <Compile Include="Documentation\ScanningSpecificNamespaceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptFactoryFixture.cs" />
+    <Compile Include="ScriptApiFixture.cs" />
     <Compile Include="ShouldExtensions.cs" />
     <Compile Include="SpecBase.cs" />
     <Compile Include="TestClasses\Invalid\EnvMissingScriptMethodAttribute.cs" />

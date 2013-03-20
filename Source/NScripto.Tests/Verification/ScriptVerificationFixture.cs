@@ -15,7 +15,7 @@ namespace NScripto.Tests.Verification
         {
             var verifier = new ScriptVerifier();
 
-            var errors = verifier.Verify(new[] {typeof (ScriptWithNonEnvDependency)});
+            var errors = verifier.AnalyzeTypes(new[] {typeof (ScriptWithNonEnvDependency)});
 
             var error = errors.ShouldContainExactlyOne<NonScriptEnvironmentGenericTypeVerificationError>();
             error.Type.ShouldEqual(typeof(ScriptWithNonEnvDependency));

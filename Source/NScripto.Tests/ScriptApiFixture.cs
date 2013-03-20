@@ -9,20 +9,20 @@ using Should;
 namespace NScripto.Tests
 {
     [TestFixture]
-    public class ScriptFactoryFixture
+    public class ScriptApiFixture
     {
-        private ScriptFactory _scriptFactory;
+        private ScriptApi _scriptApi;
 
         [SetUp]
         public void BeforeEachTest()
         {
-            _scriptFactory = new ScriptFactory(new CSharpScriptCompiler());
+            _scriptApi = new ScriptApi(new CSharpScriptCompiler());
         }
                 
         [Test]
         public void SupportsGenericArity1()
         {
-            var script = _scriptFactory.CompileScript<TestScriptArity1>("throw new Exception()");
+            var script = _scriptApi.CompileScript<TestScriptArity1>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
         }        
@@ -30,7 +30,7 @@ namespace NScripto.Tests
         [Test]
         public void SupportsGenericArity2()
         {
-            var script = _scriptFactory.CompileScript<TestScriptArity2>("throw new Exception()");
+            var script = _scriptApi.CompileScript<TestScriptArity2>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
         }        
@@ -38,7 +38,7 @@ namespace NScripto.Tests
         [Test]
         public void SupportsGenericArity3()
         {
-            var script = _scriptFactory.CompileScript<TestScriptArity3>("throw new Exception()");
+            var script = _scriptApi.CompileScript<TestScriptArity3>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
         }
@@ -46,7 +46,7 @@ namespace NScripto.Tests
         [Test]
         public void SupportsGenericArity4()
         {
-            var script = _scriptFactory.CompileScript<TestScriptArity4>("throw new Exception()");
+            var script = _scriptApi.CompileScript<TestScriptArity4>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
         }
@@ -54,14 +54,14 @@ namespace NScripto.Tests
         [Test]
         public void InvalidConstructor_MultipleScriptConstructors_ThrowsException()
         {
-            var exception = Assert.Throws<MultipleScriptConstructorsException>(() => _scriptFactory.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
+            var exception = Assert.Throws<MultipleScriptConstructorsException>(() => _scriptApi.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
             exception.ScriptType.ShouldEqual(typeof(ScriptWithMultipleScriptConstructors));
         }
 
         [Test]
         public void InvalidConstructor_NoScriptConstructors_ThrowsException()
         {
-            var exception = Assert.Throws<NoScriptConstructorsException>(() => _scriptFactory.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
+            var exception = Assert.Throws<NoScriptConstructorsException>(() => _scriptApi.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
             exception.ScriptType.ShouldEqual(typeof(ScriptWithNoScriptConstructors));
         }
     }

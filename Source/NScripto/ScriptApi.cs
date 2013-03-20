@@ -7,11 +7,11 @@ using NScripto.Wrappers;
 
 namespace NScripto
 {
-    public class ScriptFactory
+    public class ScriptApi
     {
         private readonly CSharpScriptCompiler _scriptCompiler;
 
-        public ScriptFactory(CSharpScriptCompiler scriptCompiler)
+        public ScriptApi(CSharpScriptCompiler scriptCompiler)
         {
             _scriptCompiler = scriptCompiler;
         }
