@@ -60,6 +60,7 @@
     <Compile Include="ScriptApiFixture.cs" />
     <Compile Include="ShouldExtensions.cs" />
     <Compile Include="SpecBase.cs" />
+    <Compile Include="TestClasses\EnvironmentWithNoScriptMethod.cs" />
     <Compile Include="TestClasses\Invalid\EnvMissingScriptMethodAttribute.cs" />
     <Compile Include="TestClasses\Invalid\EnvMissingScriptParameterAttribute.cs" />
     <Compile Include="TestClasses\Invalid\EnvWrongScriptParameterAttributeName.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.Invalid;
 using NScripto.Verification;
 using NScripto.Verification.Errors;
@@ -12,6 +13,16 @@ namespace NScripto.Tests.Verification
     [TestFixture]
     public class EnvironmentVerificationFixture
     {
+        [Test]
+        public void DoesNotReportScriptMethodsWithNoScriptMethodAttributes()
+        {
+            var verifier = new ScriptVerifier();
+
+            var errors = verifier.AnalyzeTypes(new [] { typeof (EnvironmentWithNoScriptMethod) });
+
+            errors.ShouldBeEmpty();
+        }       
+        
         [Test]
         public void ReportsScriptEnvironmentsWithoutScriptMethodAttributes()
         {

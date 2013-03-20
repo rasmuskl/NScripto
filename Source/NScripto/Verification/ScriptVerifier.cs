@@ -22,6 +22,11 @@ namespace NScripto.Verification
 
                     foreach (var methodInfo in methodInfos.Where(IsNotObjectMethodOrCompilerGenerated))
                     {
+                        if (methodInfo.GetCustomAttributes(typeof (NoScriptMethodAttribute), true).Any())
+                        {
+                            continue;
+                        }
+
                         if (!methodInfo.GetCustomAttributes(typeof(ScriptMethodAttribute), true).Any())
                         {
                             errors.Add(new MissingScriptMethodAttributeVerificationError(type, methodInfo));
