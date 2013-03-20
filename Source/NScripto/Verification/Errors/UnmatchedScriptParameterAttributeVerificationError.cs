@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using NScripto.Documentation.Attributes;
+using NScripto.Documentation;
 
 namespace NScripto.Verification.Errors
 {

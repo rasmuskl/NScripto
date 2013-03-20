@@ -5,7 +5,6 @@ using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using NScripto.Documentation;
-using NScripto.Documentation.Attributes;
 
 namespace NScripto.CodeDom
 {

@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace NScripto.Documentation.Attributes
+namespace NScripto.Documentation
 {
     public class ScriptMethodAttribute : Attribute
     {

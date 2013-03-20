@@ -2,10 +2,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
-using NScripto.Documentation.Attributes;
 using NScripto.Documentation.Model;
 
-namespace NScripto.Documentation
+namespace NScripto.Documentation.Tools
 {
     public class ScriptDocumentationExtractor
     {

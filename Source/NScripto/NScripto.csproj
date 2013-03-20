@@ -42,16 +42,16 @@
   <ItemGroup>
     <Compile Include="CodeDom\MethodDelegater.cs" />
     <Compile Include="CSharp\CSharpScriptCompiler.cs" />
-    <Compile Include="Documentation\Attributes\NoScriptMethodAttribute.cs" />
-    <Compile Include="Documentation\Attributes\ScriptAttribute.cs" />
-    <Compile Include="Documentation\Attributes\ScriptEnvironmentAttribute.cs" />
-    <Compile Include="Documentation\Attributes\ScriptMethodAttribute.cs" />
-    <Compile Include="Documentation\Attributes\ScriptParameterAttribute.cs" />
+    <Compile Include="Documentation\NoScriptMethodAttribute.cs" />
+    <Compile Include="Documentation\ScriptAttribute.cs" />
+    <Compile Include="Documentation\ScriptEnvironmentAttribute.cs" />
+    <Compile Include="Documentation\ScriptMethodAttribute.cs" />
+    <Compile Include="Documentation\ScriptParameterAttribute.cs" />
     <Compile Include="Documentation\Model\EnvironmentDocumentation.cs" />
     <Compile Include="Documentation\Model\ScriptDocumentation.cs" />
-    <Compile Include="Documentation\ScriptDocumentationExtractor.cs" />
+    <Compile Include="Documentation\Tools\ScriptDocumentationExtractor.cs" />
     <Compile Include="Documentation\Model\ScriptDocumentationParameter.cs" />
-    <Compile Include="Documentation\ScriptEnvironmentScanner.cs" />
+    <Compile Include="Documentation\Tools\ScriptEnvironmentScanner.cs" />
     <Compile Include="Documentation\Model\ScriptMethodDocumentation.cs" />
     <Compile Include="Documentation\Model\ScriptTypeDocumentation.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

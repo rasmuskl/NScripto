@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 using NScripto.Documentation;
+using NScripto.Documentation.Tools;
 using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.Nested;
 using NUnit.Framework;

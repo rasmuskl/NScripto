@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NScripto.Documentation;
 using NScripto.Documentation.Model;
+using NScripto.Documentation.Tools;
 using NScripto.Tests.TestClasses;
 using NUnit.Framework;
 using Should;
