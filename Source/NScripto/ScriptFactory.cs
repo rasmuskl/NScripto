@@ -22,9 +22,14 @@ namespace NScripto
 
             var scriptConstructors = scriptType.GetConstructors().Where(IsScriptConstructor).ToArray();
 
-            if (scriptConstructors.Count() > 1)
+            if (scriptConstructors.Length > 1)
             {
                 throw new MultipleScriptConstructorsException(typeof(T));
+            }
+
+            if (scriptConstructors.Length == 0)
+            {
+                throw new NoScriptConstructorsException(typeof(T));
             }
 
             var scriptConstructor = scriptConstructors.Single();
@@ -44,7 +49,7 @@ namespace NScripto
         {
             var parameters = constructor.GetParameters();
 
-            if (parameters.Count() != 1)
+            if (parameters.Length != 1)
             {
                 return false;
             }

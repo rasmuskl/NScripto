@@ -57,5 +57,12 @@ namespace NScripto.Tests
             var exception = Assert.Throws<MultipleScriptConstructorsException>(() => _scriptFactory.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
             exception.ScriptType.ShouldEqual(typeof(ScriptWithMultipleScriptConstructors));
         }
+
+        [Test]
+        public void InvalidConstructor_NoScriptConstructors_ThrowsException()
+        {
+            var exception = Assert.Throws<NoScriptConstructorsException>(() => _scriptFactory.CompileScript<ScriptWithMultipleScriptConstructors>(string.Empty));
+            exception.ScriptType.ShouldEqual(typeof(ScriptWithNoScriptConstructors));
+        }
     }
 }

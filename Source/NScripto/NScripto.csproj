@@ -55,6 +55,7 @@
     <Compile Include="Documentation\Model\ScriptMethodDocumentation.cs" />
     <Compile Include="Documentation\Model\ScriptTypeDocumentation.cs" />
     <Compile Include="Exceptions\MultipleScriptConstructorsException.cs" />
+    <Compile Include="Exceptions\NoScriptConstructorsException.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IScript.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
