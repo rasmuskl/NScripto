@@ -84,7 +84,9 @@ The resulting documentation in pseudo-form:
 
 # Caching compiled scripts
 
-As NScripto generates and compiles C# code on the fly and since the CLR does not allow for compiled code to be unloaded outside of unloading entire AppDomains, only compiling each individual script once makes a lot of sense to reduce the memory load over time. NScripto provides a simple cache that transparently ensure that scripts are only compiled once. As NScripto has no way of unloading scripts, compiled scripts stay in the internal cache indefinitely. 
+As NScripto generates and compiles C# code on the fly and since the CLR does not allow for compiled code to be unloaded outside of unloading entire AppDomains, only compiling each individual script once makes a lot of sense to reduce the memory load over time. NScripto provides a simple cache that transparently ensure that scripts are only compiled once. 
+
+The cache is static across all instances of ScriptApi and as NScripto has no way of unloading scripts, compiled scripts stay in the internal cache indefinitely. 
 
 In special scenarios where this caching is not desired, for instance if you are handling unloads using AppDomains, it can be disabled when instantiating the script api.
 

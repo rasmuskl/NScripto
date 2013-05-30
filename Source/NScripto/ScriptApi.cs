@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NScripto.CSharp;
+using NScripto.Cache;
 using NScripto.Documentation;
 using NScripto.Exceptions;
+using NScripto.Raw;
 using NScripto.Verification;
 using NScripto.Wrappers;
 
@@ -66,12 +68,20 @@ namespace NScripto
 
         private object CompileGenericScript(string scriptText, Type[] genericArguments)
         {
-            var openGenericScriptType = GetGenericWrapperOfArity(genericArguments.Count());
-            var closedGenericScriptType = openGenericScriptType.MakeGenericType(genericArguments);
+            IRawScript cachedScript;
+            if (ScriptCache.TryGetCachedScript(scriptText, genericArguments, out cachedScript))
+            {
+                return cachedScript;
+            }
 
-            var script = _scriptCompiler.CompileScript(scriptText, genericArguments);
-            var genericScript = Activator.CreateInstance(closedGenericScriptType, script);
+            Type openGenericScriptType = GetGenericWrapperOfArity(genericArguments.Count());
+            Type closedGenericScriptType = openGenericScriptType.MakeGenericType(genericArguments);
 
+            IRawScript compiledScript = _scriptCompiler.CompileScript(scriptText, genericArguments);
+            
+            ScriptCache.AddCachedScript(scriptText, genericArguments, cachedScript);
+
+            var genericScript = Activator.CreateInstance(closedGenericScriptType, compiledScript);
             return genericScript;
         }
 
