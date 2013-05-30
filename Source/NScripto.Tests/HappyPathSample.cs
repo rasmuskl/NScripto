@@ -18,21 +18,21 @@ namespace NScripto.Tests
         [Test]
         public void Meh()
         {
-            var happyScript = _scriptApi.CompileScript<HappyScript>("");
+            var happyScript = _scriptApi.CompileWrappedScript<HappyScript>("");
             happyScript.Run().ShouldEqual("Moody");
         }
 
         [Test]
         public void Yay()
         {
-            var happyScript = _scriptApi.CompileScript<HappyScript>("Happy()");
+            var happyScript = _scriptApi.CompileWrappedScript<HappyScript>("Happy()");
             happyScript.Run().ShouldEqual("Happy!");
         }
 
         [Test]
         public void Noo()
         {
-            var happyScript = _scriptApi.CompileScript<HappyScript>("Unhappy()");
+            var happyScript = _scriptApi.CompileWrappedScript<HappyScript>("Unhappy()");
             happyScript.Run().ShouldEqual("Unhappy!");
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Security;
 using NScripto.CSharp;
 using NScripto.Exceptions;
 using NScripto.Verification;
@@ -19,7 +18,7 @@ namespace NScripto
             _scriptCompiler = scriptCompiler;
         }
 
-        public T CompileScript<T>(string scriptText)
+        public T CompileWrappedScript<T>(string scriptText)
         {
             var scriptType = typeof(T);
 
@@ -39,13 +38,44 @@ namespace NScripto
             var scriptParameter = scriptConstructor.GetParameters().Single();
             var genericArguments = scriptParameter.ParameterType.GetGenericArguments();
 
+            var genericScript = CompileGenericScript(scriptText, genericArguments);
+
+            return (T)Activator.CreateInstance(typeof(T), new[] { genericScript }, new object[0]);
+        }
+
+        public IScript<T> CompileScript<T>(string scriptText)
+        {
+            var genericScript = CompileGenericScript(scriptText, new[] { typeof(T) });
+            return (IScript<T>)genericScript;
+        }
+        
+        public IScript<T, T2> CompileScript<T, T2>(string scriptText)
+        {
+            var genericScript = CompileGenericScript(scriptText, new[] { typeof(T), typeof(T2) });
+            return (IScript<T, T2>)genericScript;
+        }
+       
+        public IScript<T, T2, T3> CompileScript<T, T2, T3>(string scriptText)
+        {
+            var genericScript = CompileGenericScript(scriptText, new[] { typeof(T), typeof(T2), typeof(T3) });
+            return (IScript<T, T2, T3>)genericScript;
+        }
+
+        public IScript<T, T2, T3, T4> CompileScript<T, T2, T3, T4>(string scriptText)
+        {
+            var genericScript = CompileGenericScript(scriptText, new[] { typeof(T), typeof(T2), typeof(T3), typeof(T4) });
+            return (IScript<T, T2, T3, T4>)genericScript;
+        }
+
+        private object CompileGenericScript(string scriptText, Type[] genericArguments)
+        {
             var openGenericScriptType = GetGenericWrapperOfArity(genericArguments.Count());
             var closedGenericScriptType = openGenericScriptType.MakeGenericType(genericArguments);
 
             var script = _scriptCompiler.CompileScript(scriptText, genericArguments);
             var genericScript = Activator.CreateInstance(closedGenericScriptType, script);
-
-            return (T)Activator.CreateInstance(typeof(T), new[] { genericScript }, new object[0]);
+            
+            return genericScript;
         }
 
         public void VerifyTypes(IEnumerable<Type> types)
