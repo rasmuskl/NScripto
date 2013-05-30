@@ -11,12 +11,7 @@ namespace NScripto
 {
     public class ScriptApi
     {
-        private readonly CSharpScriptCompiler _scriptCompiler;
-
-        public ScriptApi(CSharpScriptCompiler scriptCompiler)
-        {
-            _scriptCompiler = scriptCompiler;
-        }
+        private readonly CSharpScriptCompiler _scriptCompiler = new CSharpScriptCompiler();
 
         public T CompileWrappedScript<T>(string scriptText)
         {

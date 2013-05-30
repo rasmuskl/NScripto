@@ -1,5 +1,4 @@
-﻿using NScripto.CSharp;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Should;
 
 namespace NScripto.Tests
@@ -12,7 +11,7 @@ namespace NScripto.Tests
         [SetUp]
         public void BeforeEachTest()
         {
-            _scriptApi = new ScriptApi(new CSharpScriptCompiler());
+            _scriptApi = new ScriptApi();
         }
 
         [Test]

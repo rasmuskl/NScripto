@@ -1,5 +1,4 @@
 ﻿using System;
-using NScripto.CSharp;
 using NScripto.Exceptions;
 using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.Invalid;
@@ -16,7 +15,7 @@ namespace NScripto.Tests
         [SetUp]
         public void BeforeEachTest()
         {
-            _scriptApi = new ScriptApi(new CSharpScriptCompiler());
+            _scriptApi = new ScriptApi();
         }
                 
         [Test]

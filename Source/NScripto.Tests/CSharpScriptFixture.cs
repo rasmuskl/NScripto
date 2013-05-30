@@ -60,8 +60,7 @@ namespace NScripto.Tests
         [Test]
         public void CanCompileTypedScript()
         {
-            var compiler = new CSharpScriptCompiler();
-            var factory = new ScriptApi(compiler);
+            var factory = new ScriptApi();
 
             var script = factory.CompileWrappedScript<TestScript>("throw new Exception()");
 
