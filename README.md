@@ -63,7 +63,7 @@ Running the test gives the following output, since we have not documented our sc
 
 !!! Test output
 
-Script environments are annotated with a [ScriptEnvironment("name", "description")] attribute. Script methods with [ScriptMethod("description")] and script method parameters with [ScriptParameter("name", "description")] attributes.
+Script environments are annotated with a [ScriptEnvironment("name", "description")] attribute. Script methods with [ScriptMethod("description")] and script method parameters with [ScriptParameter("name", "description")] attributes. Methods with the [NoScript] attribute will not be documented or accessible to scripts.
 
 Additionally wrapped script classes can be annotated with a [Script("name", "description")] attribute, since these provide a natural grouping of available environments in the various scenarios.
 

@@ -52,12 +52,12 @@
     <Compile Include="Documentation\ExtractingNoAttributeFixture.cs" />
     <Compile Include="Documentation\ExtractingTestEnvironmentDocumentationFixture.cs" />
     <Compile Include="Documentation\ExtractingTestScriptDocumentationFixture.cs" />
-    <Compile Include="HappyPathSample.cs" />
     <Compile Include="MethodDelegaterFixture.cs" />
     <Compile Include="Documentation\ScanningAssemblyFixture.cs" />
     <Compile Include="Documentation\ScanningSpecificNamespaceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadMe\ComposedSample.cs" />
+    <Compile Include="ReadMe\WrappedSample.cs" />
     <Compile Include="ScriptApiFixture.cs" />
     <Compile Include="ShouldExtensions.cs" />
     <Compile Include="SpecBase.cs" />
