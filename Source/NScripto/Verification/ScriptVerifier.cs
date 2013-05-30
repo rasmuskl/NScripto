@@ -39,7 +39,7 @@ namespace NScripto.Verification
 
                         foreach (var parameterInfo in parameterInfos)
                         {
-                            if (!scriptParameterAttributes.Any(x => x.Name == parameterInfo.Name))
+                            if (scriptParameterAttributes.All(x => x.Name != parameterInfo.Name))
                             {
                                 errors.Add(new MissingScriptParameterAttributeVerificationError(type, methodInfo, parameterInfo));
                             }
@@ -47,7 +47,7 @@ namespace NScripto.Verification
 
                         foreach (var scriptParameterAttribute in scriptParameterAttributes)
                         {
-                            if (!parameterInfos.Any(x => x.Name == scriptParameterAttribute.Name))
+                            if (parameterInfos.All(x => x.Name != scriptParameterAttribute.Name))
                             {
                                 errors.Add(new UnmatchedScriptParameterAttributeVerificationError(type, methodInfo, scriptParameterAttribute));
                             }

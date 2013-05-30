@@ -8,6 +8,8 @@ packages
 _NCrunch_NScripto
 *.user
 
+_ReSharper*
+
 # mstest test results
 TestResults
 
