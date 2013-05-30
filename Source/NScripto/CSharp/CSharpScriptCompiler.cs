@@ -24,28 +24,9 @@ namespace NScripto.CSharp
                 return new EmptyScript();
             }
 
-            var parameters = new CompilerParameters();
-
             var compileUnit = new CodeCompileUnit();
-            var codeNamespace = AddNamespace(compileUnit);
-            var typeDeclaration = AddClass(codeNamespace);
-            
-            DelegateMethods(typeDeclaration, delegatedTypes);
-
-            AddRunMethod(typeDeclaration, script);
-
-            parameters.GenerateInMemory = true;
-            parameters.GenerateExecutable = false;
-            parameters.ReferencedAssemblies.Add(typeof(DefaultParameterValueAttribute).Assembly.Location);
-            parameters.ReferencedAssemblies.Add(typeof(IScriptRunnable).Assembly.Location);
-
-            foreach (var delegatedType in delegatedTypes)
-            {
-                parameters.ReferencedAssemblies.Add(delegatedType.Assembly.Location);
-            }
-
             var codeProvider = new CSharpCodeProvider();
-            CompilerResults results = codeProvider.CompileAssemblyFromDom(parameters, compileUnit);
+            var results = GetCompilerResults(script, delegatedTypes, compileUnit, codeProvider);
 
             if (results.Errors.HasErrors)
             {
@@ -56,6 +37,40 @@ namespace NScripto.CSharp
             }
 
             return new RawScriptWrapper(results.CompiledAssembly.GetTypes().First());
+        }
+
+        private CompilerResults GetCompilerResults(string script, Type[] delegatedTypes, CodeCompileUnit compileUnit, CSharpCodeProvider codeProvider)
+        {
+            var parameters = new CompilerParameters();
+
+            var codeNamespace = AddNamespace(compileUnit);
+            var typeDeclaration = AddClass(codeNamespace);
+
+            DelegateMethods(typeDeclaration, delegatedTypes);
+
+            AddRunMethod(typeDeclaration, script);
+
+            parameters.GenerateInMemory = true;
+            parameters.GenerateExecutable = false;
+            parameters.ReferencedAssemblies.Add(typeof (DefaultParameterValueAttribute).Assembly.Location);
+            parameters.ReferencedAssemblies.Add(typeof (IScriptRunnable).Assembly.Location);
+
+            foreach (var delegatedType in delegatedTypes)
+            {
+                parameters.ReferencedAssemblies.Add(delegatedType.Assembly.Location);
+            }
+
+            return codeProvider.CompileAssemblyFromDom(parameters, compileUnit);
+        }
+
+        public string ShowGeneratedCode(string script, params Type[] delegatedTypes)
+        {
+            var compileUnit = new CodeCompileUnit();
+            var codeProvider = new CSharpCodeProvider();
+            
+            GetCompilerResults(script, delegatedTypes, compileUnit, codeProvider);
+
+            return BuildCodeString(codeProvider, compileUnit);
         }
 
         private void DelegateMethods(CodeTypeDeclaration typeDeclaration, IEnumerable<Type> delegatedTypes)
