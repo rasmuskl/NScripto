@@ -54,9 +54,10 @@
     <Compile Include="Documentation\ExtractingTestScriptDocumentationFixture.cs" />
     <Compile Include="MethodDelegaterFixture.cs" />
     <Compile Include="Documentation\ScanningAssemblyFixture.cs" />
-    <Compile Include="Documentation\ScanningSpecificNamespaceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadMe\ComposedSample.cs" />
+    <Compile Include="ReadMe\DocumentationSample.cs" />
+    <Compile Include="ReadMe\VerificationSample.cs" />
     <Compile Include="ReadMe\WrappedSample.cs" />
     <Compile Include="ScriptApiFixture.cs" />
     <Compile Include="ShouldExtensions.cs" />

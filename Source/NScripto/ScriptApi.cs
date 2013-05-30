@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using NScripto.CSharp;
+using NScripto.Documentation;
 using NScripto.Exceptions;
 using NScripto.Verification;
 using NScripto.Wrappers;
@@ -12,6 +13,7 @@ namespace NScripto
     public class ScriptApi
     {
         private readonly CSharpScriptCompiler _scriptCompiler = new CSharpScriptCompiler();
+        private readonly ScriptDocumentationExtractor _documentationExtractor = new ScriptDocumentationExtractor();
 
         public T CompileWrappedScript<T>(string scriptText)
         {
@@ -43,13 +45,13 @@ namespace NScripto
             var genericScript = CompileGenericScript(scriptText, new[] { typeof(T) });
             return (IScript<T>)genericScript;
         }
-        
+
         public IScript<T, T2> CompileScript<T, T2>(string scriptText)
         {
             var genericScript = CompileGenericScript(scriptText, new[] { typeof(T), typeof(T2) });
             return (IScript<T, T2>)genericScript;
         }
-       
+
         public IScript<T, T2, T3> CompileScript<T, T2, T3>(string scriptText)
         {
             var genericScript = CompileGenericScript(scriptText, new[] { typeof(T), typeof(T2), typeof(T3) });
@@ -69,7 +71,7 @@ namespace NScripto
 
             var script = _scriptCompiler.CompileScript(scriptText, genericArguments);
             var genericScript = Activator.CreateInstance(closedGenericScriptType, script);
-            
+
             return genericScript;
         }
 
@@ -93,6 +95,21 @@ namespace NScripto
         public void VerifyTypesInAssemblyOf<T>()
         {
             VerifyTypesInAssembly(typeof(T).Assembly);
+        }
+
+        public ScriptDocumentation ExtractDocumentationFromTypes(Type[] types)
+        {
+            return _documentationExtractor.ExtractDocumentation(types);
+        }
+
+        public ScriptDocumentation ExtractDocumentationFromAssembly(Assembly assembly)
+        {
+            return _documentationExtractor.ExtractDocumentation(assembly.GetTypes());
+        }
+
+        public ScriptDocumentation ExtractDocumentationFromAssemblyOf<T>()
+        {
+            return _documentationExtractor.ExtractDocumentation(typeof(T).Assembly.GetTypes());
         }
 
         private bool IsScriptConstructor(ConstructorInfo constructor)

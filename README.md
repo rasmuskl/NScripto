@@ -55,7 +55,9 @@ If your script environment contains public methods that should not be available 
 
 Creating and maintaining an up-to-date documentation of the script methods available in each script types for end users to consume manually will often be errornous and at best labourious. NScripto comes with tools to annotating scripts with documentation, extracting this documentation at runtime and verification tools that are easy to put in a unit test to ensure that your documentation is always up-to-date.
 
-Starting from the outside in, here is a simple NUnit test using the verification tool to check our script assembly for missing documentation.
+The verification will look for wrapped script constructors (using one of the IScript interfaces as only parameter) and script environments annotated with the [ScriptEnvironment] attribute.
+
+Starting from the outside in, here is a simple NUnit test using the verification tool to check our script assembly for missing documentation. 
 
 !!! Example of NUnit verification test
 

@@ -2,21 +2,12 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace NScripto.Documentation.Model
+namespace NScripto.Documentation
 {
     public class ScriptDocumentation
     {
         private readonly List<EnvironmentDocumentation> _environments = new List<EnvironmentDocumentation>();
         private readonly List<ScriptTypeDocumentation> _scripts = new List<ScriptTypeDocumentation>();
-
-        public ScriptDocumentation(ScriptTypeDocumentation scriptTypeDocumentation)
-        {
-            _scripts.Add(scriptTypeDocumentation);
-        }
-
-        public ScriptDocumentation()
-        {
-        }
 
         public IEnumerable<EnvironmentDocumentation> Environments
         {
@@ -28,7 +19,12 @@ namespace NScripto.Documentation.Model
             get { return _scripts.AsReadOnly(); }
         }
 
-        public void Add(Type environmentType, string name, string description)
+        public void AddWrappedScript(ScriptTypeDocumentation scriptTypeDocumentation)
+        {
+            _scripts.Add(scriptTypeDocumentation);
+        }
+
+        public void AddEnvironment(Type environmentType, string name, string description)
         {
             _environments.Add(new EnvironmentDocumentation(environmentType, name, description));
         }

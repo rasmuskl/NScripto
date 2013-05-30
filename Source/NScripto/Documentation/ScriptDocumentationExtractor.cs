@@ -2,28 +2,30 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using System.Reflection;
-using NScripto.Documentation.Model;
 
-namespace NScripto.Documentation.Tools
+namespace NScripto.Documentation
 {
     public class ScriptDocumentationExtractor
     {
-        public ScriptDocumentation Extract(Type type)
+        public ScriptDocumentation ExtractDocumentation(Type type)
         {
-            return Extract(new [] { type });
+            return ExtractDocumentation(new[] { type });
         }
 
-        public ScriptDocumentation Extract(IEnumerable<Type> environmentTypes)
+        public ScriptDocumentation ExtractDocumentation(IEnumerable<Type> types)
         {
             var documentation = new ScriptDocumentation();
 
-            foreach (var type in environmentTypes)
-                AddSingleType(type, documentation);
+            foreach (var type in types)
+            {
+                TryAddEnvironmentType(type, documentation);
+                TryAddWrappedScript(type, documentation);
+            }
 
             return documentation;
         }
 
-        private void AddSingleType(Type type, ScriptDocumentation documentation)
+        private void TryAddEnvironmentType(Type type, ScriptDocumentation documentation)
         {
             var environmentAttributes = type.GetCustomAttributes(typeof(ScriptEnvironmentAttribute), false).Cast<ScriptEnvironmentAttribute>();
             var environmentAttribute = environmentAttributes.FirstOrDefault();
@@ -31,7 +33,7 @@ namespace NScripto.Documentation.Tools
             if (environmentAttribute == null)
                 return;
 
-            documentation.Add(type, environmentAttribute.Name, environmentAttribute.Description);
+            documentation.AddEnvironment(type, environmentAttribute.Name, environmentAttribute.Description);
 
             foreach (var methodInfo in type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
             {
@@ -41,7 +43,7 @@ namespace NScripto.Documentation.Tools
                 if (methodAttribute == null)
                     continue;
 
-                var parameterAttributes = methodInfo.GetCustomAttributes(typeof(ScriptParameterAttribute), false).OfType<ScriptParameterAttribute>();
+                var parameterAttributes = methodInfo.GetCustomAttributes(typeof(ScriptParameterAttribute), false).OfType<ScriptParameterAttribute>().ToArray();
 
                 documentation.AddScriptMethod(environmentAttribute.Name, methodInfo.Name, methodAttribute.Description);
 
@@ -57,21 +59,31 @@ namespace NScripto.Documentation.Tools
             }
         }
 
-        public ScriptDocumentation ExtractScriptDocumentation(Type scriptType)
+        private void TryAddWrappedScript(Type scriptType, ScriptDocumentation documentation)
         {
-            ParameterInfo parameterInfo = scriptType.GetConstructors().First().GetParameters().First();
-            Type[] genericArguments = parameterInfo.ParameterType.GetGenericArguments();
-
             var scriptAttributes = scriptType.GetCustomAttributes(typeof(ScriptAttribute), false).Cast<ScriptAttribute>();
             var scriptAttribute = scriptAttributes.FirstOrDefault();
+
+            if (scriptAttribute == null)
+            {
+                return;
+            }
+
+            ParameterInfo parameterInfo = scriptType.GetConstructors().First().GetParameters().First();
+            Type[] genericArguments = parameterInfo.ParameterType.GetGenericArguments();
 
             var name = scriptAttribute.Name;
             var description = scriptAttribute.Description;
 
-            var envDocs = Extract(genericArguments);
+            var envDocs = ExtractDocumentation(genericArguments);
             var scriptDoc = new ScriptTypeDocumentation(scriptType, envDocs.Environments.ToArray(), name, description);
 
-            return new ScriptDocumentation(scriptDoc);
+            documentation.AddWrappedScript(scriptDoc);
+
+            foreach (var envDoc in envDocs.Environments)
+            {
+                documentation.AddEnvironment(envDoc.EnvironmentType, envDoc.Name, envDoc.Description);
+            }
         }
     }
 }

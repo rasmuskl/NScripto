@@ -1,6 +1,4 @@
 ﻿using NScripto.Documentation;
-using NScripto.Documentation.Model;
-using NScripto.Documentation.Tools;
 using NScripto.Tests.TestClasses;
 using NScripto.Tests.TestClasses.ScriptTypes;
 using NUnit.Framework;
@@ -22,7 +20,7 @@ namespace NScripto.Tests.Documentation
 
         protected override void Act()
         {
-            _documentation = _extractor.ExtractScriptDocumentation(typeof(DocumentedScript));
+            _documentation = _extractor.ExtractDocumentation(typeof(DocumentedScript));
         }
 
         [Test]

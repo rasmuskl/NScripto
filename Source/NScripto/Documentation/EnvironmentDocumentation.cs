@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace NScripto.Documentation.Model
+namespace NScripto.Documentation
 {
     public class EnvironmentDocumentation
     {
@@ -38,5 +38,37 @@ namespace NScripto.Documentation.Model
         }
 
         public Type EnvironmentType { get; private set; }
+
+        #region Equality members
+
+        protected bool Equals(EnvironmentDocumentation other)
+        {
+            return EnvironmentType == other.EnvironmentType;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((EnvironmentDocumentation) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (EnvironmentType != null ? EnvironmentType.GetHashCode() : 0);
+        }
+
+        public static bool operator ==(EnvironmentDocumentation left, EnvironmentDocumentation right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(EnvironmentDocumentation left, EnvironmentDocumentation right)
+        {
+            return !Equals(left, right);
+        }
+
+        #endregion
     }
 }
