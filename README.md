@@ -9,6 +9,10 @@ Note that NScripto does not make use of AppDomains, so without wrapping script u
 
 Also, NScripto does not deal with security out of the box - it allows for arbitrary C# code to be compiled and run - so it is not a good fit for scenarios with potentially malicious users without extra precausions.
 
+# Examples
+
+All examples are expressed as NUnit tests. These can also be found in the test project in the `NScripto.Test.Samples` namespace.
+
 # Basic example
 
 The simplest meaningful example of NScripto would be to something like the following:
