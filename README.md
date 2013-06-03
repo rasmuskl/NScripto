@@ -1,13 +1,13 @@
 NScripto
 ========
 
-NScripto is a lightweight fast C# script engine, built and harvested from a project that required flexible user configuration. The latter versions of C# have made it more suitable for use as a scripting language. 
+NScripto is a lightweight, fast C# script engine for enabling embedded C# scripting, built and harvested from a project that required flexible user configuration. The latter versions of C# have made it more suitable for use as a scripting language. 
 
 In essence, NScripto allows small C# scripts to be written without the end-user worrying about classes and methods, while still providing the developer with tools resembling mixins for script composition that ease the burden of maintainability. It does so by dynamically delegation classes and compiling code on the fly with CodeDom. The resulting compiled scripts are as fast as any other C#.
 
 Note that NScripto does not make use of AppDomains, so without wrapping script usage in your own AppDomains, it will not be possible to unload compiled scripts (thus every script compiled will consume memory until the process is killed). NScripto will cache identical scripts to reduce this problem (see caching section below). 
 
-Also, NScripto does not deal with security out of the box - it allows for arbitrary C# code to be compiled and run - so it is not a good fit for scenarios with potentially malicious users without extra precausions.
+Also, NScripto does not deal with security out of the box - it allows for arbitrary C# code to be compiled and run - so it is not a good fit for scenarios with potentially malicious users without extra precautions.
 
 # Examples
 
