@@ -3,7 +3,7 @@
 set /P VERSION=Enter version: 
 
 rem Append alpha flag
-set VERSION=%VERSION%-alpha
+rem set VERSION=%VERSION%-alpha
 
 echo Verify version: %VERSION%
 
@@ -19,7 +19,6 @@ goto :DONE
 if %errorlevel% neq 0 goto :DONE
 git tag %VERSION%
 echo Tagged commit with tag '%VERSION%' - push tags to origin with 'git push --tags'.
-
 
 :DONE
 @prompt $p$g

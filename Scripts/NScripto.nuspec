@@ -9,7 +9,7 @@
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <projectUrl>http://github.com/rasmuskl/NScripto</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NScripto is a C# script engine.</description>
+    <description>NScripto is a lightweight, fast C# script engine for enabling embedded C# scripting for advanced end users.</description>
     <copyright>Copyright 2012</copyright>
     <tags>csharp script</tags>
   </metadata>
