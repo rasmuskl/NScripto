@@ -46,9 +46,9 @@ The basic unit for integrating with scripts is the concept of an "Environment". 
 The class generated from the above example looks roughly like this:
 
 ```csharp
- public class Script : NScripto.Raw.IScriptRunnable
+/// This is a GENERATED class.
+public class Script : NScripto.Raw.IScriptRunnable
 {
-    
     private HelloWorldEnvironment helloWorldEnvironment;
     
     public void DoIt()
@@ -114,9 +114,9 @@ public class GeneralPurposeEnvironment
 Which on runtime would generate the following delegation class:
 
 ```csharp
+/// This is a GENERATED class.
 public class Script : NScripto.Raw.IScriptRunnable
 {
-    
     private HelloWorldEnvironment helloWorldEnvironment;
     private GeneralPurposeEnvironment generalPurposeEnvironment;
     
