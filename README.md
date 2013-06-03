@@ -41,7 +41,7 @@ public class HelloWorldEnvironment
 }
 ```
 
-The basic unit for integrating with scripts is the concept of an Environment. Any public method in the contained Environment will be available to the script and Environment instances can also hold any state / output that the script produces.
+The basic unit for integrating with scripts is the concept of an "Environment". Any public method in the contained environment will be available to the script and environment instances can also hold any state / output that the script produces.
 
 The class generated from the above example looks roughly like this:
 
@@ -133,7 +133,7 @@ public class HappyEnvironment
 }
 ```
 
-Compiling the script inside the wrapper is done using the ScriptApi class like so:
+Compiling the script inside the wrapper is done using the `ScriptApi` class like so:
 
 ```csharp
 [Test]
@@ -152,13 +152,13 @@ NScripto will instantiate the wrapper class and inject the compiled script.
 
 # Exluding script environment methods
 
-If your script environment contains public methods that should not be available to compiled scripts, you can annotate them with the [NoScript] attribute.
+If your script environment contains public methods that should not be available to compiled scripts, you can annotate them with the `[NoScript]` attribute.
 
 # Script documentation
 
 Creating and maintaining an up-to-date documentation of the script methods available in each script types for end users to consume manually will often be errornous and at best labourious. NScripto comes with tools to annotating scripts with documentation, extracting this documentation at runtime and verification tools that are easy to put in a unit test to ensure that your documentation is always up-to-date.
 
-The verification will look for wrapped script constructors (using one of the IScript interfaces as only parameter) and script environments annotated with the [ScriptEnvironment] attribute.
+The verification will look for wrapped script constructors (using one of the `IScript` interfaces as only parameter) and script environments annotated with the `[ScriptEnvironment]` attribute.
 
 Starting from the outside in, here is a simple NUnit test using the verification tool to check our script assembly for missing documentation. 
 
@@ -197,9 +197,9 @@ NScripto.Exceptions.ScriptVerificationException : Script verification failed:
  - Missing script parameter (mood) attribute in environment: HappyEnvironment, method: Mood
  ```
 
-Script environments are annotated with a [ScriptEnvironment("name", "description")] attribute. Script methods with [ScriptMethod("description")] and script method parameters with [ScriptParameter("name", "description")] attributes. Methods with the [NoScript] attribute will not be documented or accessible to scripts.
+Script environments are annotated with a `[ScriptEnvironment("name", "description")]` attribute. Script methods with `[ScriptMethod("description")]` and script method parameters with `[ScriptParameter("name", "description")]` attributes. Methods with the `[NoScript]` attribute will not be documented or accessible to scripts.
 
-Additionally wrapped script classes can be annotated with a [Script("name", "description")] attribute, since these provide a natural grouping of available environments in the various scenarios.
+Additionally wrapped script classes can be annotated with a `[Script("name", "description")]` attribute, since these provide a natural grouping of available environments in the various scenarios.
 
 Annotating our sample script gives us this:
 
@@ -236,5 +236,5 @@ The resulting documentation in pseudo-form:
 
 As NScripto generates and compiles C# code on the fly and since the CLR does not allow for compiled code to be unloaded outside of unloading entire AppDomains, only compiling each individual script once makes a lot of sense to reduce the memory load over time. NScripto provides a simple cache that transparently ensures that unique scripts are only compiled once. 
 
-The cache is static across all instances of ScriptApi and as NScripto has no way of unloading scripts, compiled scripts stay in the internal cache indefinitely.
+The cache is static across all instances of `ScriptApi` and as NScripto has no way of unloading scripts, compiled scripts stay in the internal cache indefinitely.
 
