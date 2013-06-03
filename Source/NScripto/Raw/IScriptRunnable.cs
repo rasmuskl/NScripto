@@ -7,6 +7,6 @@ namespace NScripto.Raw
     public interface IScriptRunnable
     {
         void Run();
-        void Initialize(object obj);
+        void Initialize(object[] objs);
     }
 }

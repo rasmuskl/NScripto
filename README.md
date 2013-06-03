@@ -45,7 +45,29 @@ The basic unit for integrating with scripts is the concept of an "Environment". 
 
 The class generated from the above example looks roughly like this:
 
-!!! Example of generated class.
+```csharp
+ public class Script : NScripto.Raw.IScriptRunnable
+{
+    
+    private HelloWorldEnvironment helloWorldEnvironment;
+    
+    public void DoIt()
+    {
+        helloWorldEnvironment.DoIt();
+    }
+    
+    public void Initialize(object[] objs)
+    {
+        this.helloWorldEnvironment = (HelloWorldEnvironment)objs[0];
+    }
+    
+    public virtual void Run()
+    {
+		DoIt();
+    }
+}
+
+```
 
 # Composed scripts
 
@@ -91,7 +113,35 @@ public class GeneralPurposeEnvironment
 
 Which on runtime would generate the following delegation class:
 
-!!! Example of generated class with 2 environments.
+```csharp
+public class Script : NScripto.Raw.IScriptRunnable
+{
+    
+    private HelloWorldEnvironment helloWorldEnvironment;
+    private GeneralPurposeEnvironment generalPurposeEnvironment;
+    
+    public void DoIt(int num)
+    {
+        helloWorldEnvironment.DoIt(num);
+    }
+    
+    public int GetRandom(int max)
+    {
+        return generalPurposeEnvironment.GetRandom(max);
+    }
+    
+    public void Initialize(object[] objs)
+    {
+        this.helloWorldEnvironment = (HelloWorldEnvironment)objs[0];
+        this.generalPurposeEnvironment = (GeneralPurposeEnvironment)objs[1];
+    }
+    
+    public virtual void Run()
+    {
+		DoIt(GetRandom(42));
+    }
+}
+```
 
 # Wrapped scripts
 
@@ -264,7 +314,7 @@ The resulting documentation in pseudo-form - JSON serialized:
 
 ```
 
-The `Scripts` property will contain any wrapped scripts with all the environments used in the wrapped script.
+The `Scripts` property will contain any wrapped scripts along with all the environments used in the wrapped script.
 
 
 # Caching compiled scripts

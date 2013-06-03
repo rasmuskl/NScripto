@@ -36,7 +36,7 @@ namespace NScripto.CSharp
                 throw new ScriptCompilationException("Compilation failed: " + string.Join(Environment.NewLine, errors.Select(x => x.ErrorText)), errors, code);
             }
 
-            return new RawScriptWrapper(results.CompiledAssembly.GetTypes().First());
+            return new RawScriptWrapper(results.CompiledAssembly.GetTypes().First(), delegatedTypes.Length);
         }
 
         private CompilerResults GetCompilerResults(string script, Type[] delegatedTypes, CodeCompileUnit compileUnit, CSharpCodeProvider codeProvider)
@@ -73,22 +73,24 @@ namespace NScripto.CSharp
             return BuildCodeString(codeProvider, compileUnit);
         }
 
-        private void DelegateMethods(CodeTypeDeclaration typeDeclaration, IEnumerable<Type> delegatedTypes)
+        private void DelegateMethods(CodeTypeDeclaration typeDeclaration, Type[] delegatedTypes)
         {
             var initializeMethod = new CodeMemberMethod();
             initializeMethod.Name = "Initialize";
             initializeMethod.Attributes = MemberAttributes.Public | MemberAttributes.Final;
-            var codeParameter = new CodeParameterDeclarationExpression(typeof (object), "obj");
+            var codeParameter = new CodeParameterDeclarationExpression(typeof (object[]), "objs");
             initializeMethod.Parameters.Add(codeParameter);
 
-            foreach (var delegatedType in delegatedTypes)
+            for (var i = 0; i < delegatedTypes.Length;i++ )
             {
+                var delegatedType = delegatedTypes[i];
+                
                 string instanceName = GenerateInstanceName(delegatedType);
 
                 var fieldDeclaration = new CodeMemberField(delegatedType, instanceName);
                 typeDeclaration.Members.Add(fieldDeclaration);
 
-                foreach(var methodInfo in delegatedType.GetMethods(BindingFlags.Public | BindingFlags.Instance))
+                foreach (var methodInfo in delegatedType.GetMethods(BindingFlags.Public | BindingFlags.Instance))
                 {
                     if (methodInfo.DeclaringType == typeof(object) || methodInfo.Attributes.HasFlag(MethodAttributes.SpecialName))
                     {
@@ -97,23 +99,19 @@ namespace NScripto.CSharp
 
                     var delegateMethod = _methodDelegater.BuildDelegateMethod(methodInfo, instanceName);
 
-                    if(delegateMethod != null)
+                    if (delegateMethod != null)
                     {
                         typeDeclaration.Members.Add(delegateMethod);
                     }
                 }
 
-                var typeOfExpression = new CodeTypeOfExpression(delegatedType);
-                var argumentReference = new CodeArgumentReferenceExpression("obj");
-                var getTypeMethodReference = new CodeMethodReferenceExpression(argumentReference, "GetType");
-                var getTypeInvokationExpression = new CodeMethodInvokeExpression(getTypeMethodReference);
+                var argumentReference = new CodeArgumentReferenceExpression("objs");
+                var codeArrayIndexerExpression = new CodeArrayIndexerExpression(argumentReference, new CodeSnippetExpression(i.ToString()));
 
-                var isTypeOfExpression = new CodeBinaryOperatorExpression(getTypeInvokationExpression, CodeBinaryOperatorType.IdentityEquality, typeOfExpression);
-                var castExpression = new CodeCastExpression(delegatedType, argumentReference);
+                var castExpression = new CodeCastExpression(delegatedType, codeArrayIndexerExpression);
                 var assignmentStatement = new CodeAssignStatement(new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), instanceName), castExpression);
-                var conditionStatement = new CodeConditionStatement(isTypeOfExpression, assignmentStatement);
 
-                initializeMethod.Statements.Add(conditionStatement);
+                initializeMethod.Statements.Add(assignmentStatement);
             }
 
             typeDeclaration.Members.Add(initializeMethod);
