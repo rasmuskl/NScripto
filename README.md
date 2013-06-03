@@ -11,13 +11,35 @@ Also, NScripto does not deal with security out of the box - it allows for arbitr
 
 # Examples
 
-All examples are expressed as NUnit tests. These can also be found in the test project in the `NScripto.Test.Samples` namespace.
+All examples are expressed as NUnit tests. These can also be found in the test project in the `NScripto.Test.ReadMe` namespace.
 
 # Basic example
 
 The simplest meaningful example of NScripto would be to something like the following:
 
-!!! Use case 1 - Simple compilation of raw script with a state variable that contains 'Hello world'.
+```csharp
+[Test]
+public void HelloWorld()
+{
+    var scriptApi = new ScriptApi();
+    var script = scriptApi.CompileScript<HelloWorldEnvironment>("DoIt()");
+
+    var environment = new HelloWorldEnvironment();
+    script.Run(environment);
+
+    environment.Result.ShouldEqual("Hello World!");
+}
+
+public class HelloWorldEnvironment
+{
+    public string Result { get; set; }
+
+    public void DoIt()
+    {
+        Result = "Hello World!";
+    }
+}
+```
 
 The basic unit for integrating with scripts is the concept of an Environment. Any public method in the contained Environment will be available to the script and Environment instances can also hold any state / output that the script produces.
 
@@ -31,7 +53,41 @@ When providing multiple different script types in different scenarios, there is 
 
 Extending the first example with an extra "general-purpose" script environment:
 
-!!! Example of raw script with 2 environments.
+```csharp
+[Test]
+public void MultipleEnvironments()
+{
+    var scriptApi = new ScriptApi();
+    var script = scriptApi.CompileScript<HelloWorldEnvironment, GeneralPurposeEnvironment>("DoIt(GetRandom(42))");
+
+    var helloEnvironment = new HelloWorldEnvironment();
+    var generalEnvironment = new GeneralPurposeEnvironment();
+
+    script.Run(helloEnvironment, generalEnvironment);
+
+    helloEnvironment.Result.ShouldEqual("Hello 28!");
+}
+
+public class HelloWorldEnvironment
+{
+    public string Result { get; set; }
+
+    public void DoIt(int num)
+    {
+        Result = "Hello " + num + "!";
+    }
+}
+
+public class GeneralPurposeEnvironment
+{
+    public static Random Random = new Random(42);
+
+    public int GetRandom(int max)
+    {
+        return Random.Next(max);
+    }
+}
+```
 
 Which on runtime would generate the following delegation class:
 
@@ -43,11 +99,54 @@ NScripto provides a convinient way of wrapping scripts in your own C# classes, h
 
 A wrapper class for our first example script could look like this:
 
-!!! Example wrapper class
+```csharp
+public class HappyScript
+{
+    private readonly IScript<HappyEnvironment> _script;
+
+    public HappyScript(IScript<HappyEnvironment> script)
+    {
+        _script = script;
+    }
+
+    public string Run()
+    {
+        var happyEnvironment = new HappyEnvironment("Moody");
+        _script.Run(happyEnvironment);
+        return happyEnvironment.State;
+    }
+}
+
+public class HappyEnvironment
+{
+    public string State { get; set; }
+
+    public HappyEnvironment(string initialState)
+    {
+        State = initialState;
+    }
+
+    public void Mood(string mood)
+    {
+        State = mood;
+    }
+}
+```
 
 Compiling the script inside the wrapper is done using the ScriptApi class like so:
 
-!!! Call to script api wrap method
+```csharp
+[Test]
+public void Wrapped()
+{
+    var scriptApi = new ScriptApi();
+    var wrappedScript = scriptApi.CompileWrappedScript<HappyScript>("Mood(\"Happy!\")");
+
+    string result = wrappedScript.Run();
+
+    result.ShouldEqual("Happy!");
+}
+```
 
 NScripto will instantiate the wrapper class and inject the compiled script. 
 
@@ -63,11 +162,40 @@ The verification will look for wrapped script constructors (using one of the ISc
 
 Starting from the outside in, here is a simple NUnit test using the verification tool to check our script assembly for missing documentation. 
 
-!!! Example of NUnit verification test
+```csharp
+[Test]
+public void VerifyScripts()
+{
+    var scriptApi = new ScriptApi();
+
+    scriptApi.VerifyTypes(new [] { typeof(HappyEnvironment) });
+}
+
+[ScriptEnvironment("Happy env!", "Happy dappy.")]
+public class HappyEnvironment
+{
+    public string State { get; set; }
+
+    public HappyEnvironment(string initialState)
+    {
+        State = initialState;
+    }
+
+    public void Mood(string mood)
+    {
+        State = mood;
+    }
+}
+```
 
 Running the test gives the following output, since we have not documented our scripts yet.
 
-!!! Test output
+```
+NScripto.Exceptions.ScriptVerificationException : Script verification failed:
+
+ - Missing script method attribute in environment: HappyEnvironment, method: Mood
+ - Missing script parameter (mood) attribute in environment: HappyEnvironment, method: Mood
+ ```
 
 Script environments are annotated with a [ScriptEnvironment("name", "description")] attribute. Script methods with [ScriptMethod("description")] and script method parameters with [ScriptParameter("name", "description")] attributes. Methods with the [NoScript] attribute will not be documented or accessible to scripts.
 
@@ -75,7 +203,25 @@ Additionally wrapped script classes can be annotated with a [Script("name", "des
 
 Annotating our sample script gives us this:
 
-!!! Annotated scripts
+```csharp
+[ScriptEnvironment("Happy env!", "Happy dappy.")]
+public class HappyEnvironment
+{
+    public string State { get; set; }
+
+    public HappyEnvironment(string initialState)
+    {
+        State = initialState;
+    }
+
+    [ScriptMethod("Sets the overall mood.")]
+    [ScriptParameter("mood", "How you doing?")]
+    public void Mood(string mood)
+    {
+        State = mood;
+    }
+}
+```
 
 Extracting the documentation for presentation is done in a similar way:
 
