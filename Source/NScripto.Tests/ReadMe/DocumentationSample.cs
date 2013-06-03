@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using NScripto.Documentation;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 namespace NScripto.Tests.ReadMe
 {
@@ -10,11 +11,13 @@ namespace NScripto.Tests.ReadMe
     public class DocumentationSample
     {
         [Test]
-        public void VerifyScripts()
+        public void ExtractScriptDocumentation()
         {
             var scriptApi = new ScriptApi();
 
             var documentation = scriptApi.ExtractDocumentationFromTypes(new[] { typeof(HappyEnvironment) });
+
+            Console.WriteLine(JsonConvert.SerializeObject(documentation, Formatting.Indented));
         }
 
         [ScriptEnvironment("Happy env!", "Happy dappy.")]

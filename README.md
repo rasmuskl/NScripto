@@ -225,11 +225,46 @@ public class HappyEnvironment
 
 Extracting the documentation for presentation is done in a similar way:
 
-!!! Extracting documentation
+```csharp
+[Test]
+public void ExtractScriptDocumentation()
+{
+    var scriptApi = new ScriptApi();
 
-The resulting documentation in pseudo-form:
+    var documentation = scriptApi.ExtractDocumentationFromTypes(new[] { typeof(HappyEnvironment) });
 
-!!! Pseudo documentation structure
+    Console.WriteLine(JsonConvert.SerializeObject(documentation, Formatting.Indented));
+}
+```
+
+The resulting documentation in pseudo-form - JSON serialized:
+
+```javascript
+{
+  "Environments": [
+    {
+      "Name": "Happy env!",
+      "Description": "Happy dappy.",
+      "Methods": [
+        {
+          "Name": "Mood",
+          "Description": "Sets the overall mood.",
+          "Parameters": [
+            {
+              "Name": "mood",
+              "Description": "How you doing?"
+            }
+          ]
+        }
+      ],
+    }
+  ],
+  "Scripts": []
+}
+
+```
+
+The `Scripts` property will contain any wrapped scripts with all the environments used in the wrapped script.
 
 
 # Caching compiled scripts
