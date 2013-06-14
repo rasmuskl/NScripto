@@ -79,7 +79,7 @@ namespace NScripto
 
             IRawScript compiledScript = _scriptCompiler.CompileScript(scriptText, genericArguments);
             
-            ScriptCache.AddCachedScript(scriptText, genericArguments, cachedScript);
+            ScriptCache.AddCachedScript(scriptText, genericArguments, compiledScript);
 
             var genericScript = Activator.CreateInstance(closedGenericScriptType, compiledScript);
             return genericScript;
