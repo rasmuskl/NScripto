@@ -68,20 +68,20 @@ namespace NScripto
 
         private object CompileGenericScript(string scriptText, Type[] genericArguments)
         {
-            IRawScript cachedScript;
-            if (ScriptCache.TryGetCachedScript(scriptText, genericArguments, out cachedScript))
+            object cachedGenericScript;
+            if (ScriptCache.TryGetCachedScript(scriptText, genericArguments, out cachedGenericScript))
             {
-                return cachedScript;
+                return cachedGenericScript;
             }
 
             Type openGenericScriptType = GetGenericWrapperOfArity(genericArguments.Count());
             Type closedGenericScriptType = openGenericScriptType.MakeGenericType(genericArguments);
 
             IRawScript compiledScript = _scriptCompiler.CompileScript(scriptText, genericArguments);
-            
-            ScriptCache.AddCachedScript(scriptText, genericArguments, compiledScript);
 
             var genericScript = Activator.CreateInstance(closedGenericScriptType, compiledScript);
+            ScriptCache.AddCachedScript(scriptText, genericArguments, genericScript);
+
             return genericScript;
         }
 

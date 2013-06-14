@@ -62,6 +62,7 @@
     <Compile Include="ReadMe\DocumentationSample.cs" />
     <Compile Include="ReadMe\VerificationSample.cs" />
     <Compile Include="ReadMe\WrappedSample.cs" />
+    <Compile Include="RegressionFixture.cs" />
     <Compile Include="ScriptApiFixture.cs" />
     <Compile Include="ShouldExtensions.cs" />
     <Compile Include="SpecBase.cs" />

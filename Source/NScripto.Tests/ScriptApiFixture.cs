@@ -17,23 +17,23 @@ namespace NScripto.Tests
         {
             _scriptApi = new ScriptApi();
         }
-                
+
         [Test]
         public void SupportsGenericArity1()
         {
             var script = _scriptApi.CompileWrappedScript<TestScriptArity1>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
-        }        
-        
+        }
+
         [Test]
         public void SupportsGenericArity2()
         {
             var script = _scriptApi.CompileWrappedScript<TestScriptArity2>("throw new Exception()");
 
             Assert.Throws<Exception>(script.Run);
-        }        
-        
+        }
+
         [Test]
         public void SupportsGenericArity3()
         {
